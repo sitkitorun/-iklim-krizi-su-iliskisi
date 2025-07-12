@@ -157,6 +157,54 @@
             border-radius: 10px;
             margin: 20px 0;
         }
+
+        /* HESAPLAMA ARACI STİLLERİ */
+        .form-group {
+            margin: 15px 0;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .calc-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .calc-btn:hover { background: #2980b9; }
+        .result-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #27ae60;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        .result-value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        /* HESAPLAMA ARACI STİLLERİ BİTİŞ */
     </style>
 </head>
 <body>
@@ -443,6 +491,35 @@
                 </div>
             </div>
 
+            <!-- YENİ HESAPLAMA ARACI -->
+            <div class="card">
+                <h3>🌊 Deniz Suyu Arıtma Tesisi Fizibilite Hesaplayıcısı</h3>
+                <form id="desal-form">
+                    <div class="form-group">
+                        <label for="desal-capacity">Tesis Kapasitesi (m³/gün):</label>
+                        <input type="number" id="desal-capacity" value="100000">
+                    </div>
+                    <div class="form-group">
+                        <label for="desal-tech">Arıtma Teknolojisi:</label>
+                        <select id="desal-tech">
+                            <option value="ro">Ters Ozmoz (RO)</option>
+                            <option value="med">Çok Aşamalı Damıtma (MED)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="desal-energy-cost">Elektrik Maliyeti (USD/kWh):</label>
+                        <input type="number" id="desal-energy-cost" value="0.12" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="desal-incentive">Yatırım Teşviki (%):</label>
+                        <input type="number" id="desal-incentive" value="15" max="100">
+                    </div>
+                    <button type="button" class="calc-btn" onclick="calculateDesalination()">Fizibilite Hesapla</button>
+                </form>
+                <div id="desal-results" class="result-box" style="display:none;"></div>
+            </div>
+            <!-- HESAPLAMA ARACI BİTİŞ -->
+
             <div class="card">
                 <h3>📈 EKONOMİK FAYDA ANALİZİ</h3>
                 
@@ -506,5 +583,54 @@
             <a href="deniz_suyu_teknolojileri.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #3498db; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">⚙️ Teknoloji Detaylarını İncele</a>
         </div>
     </div>
+
+    <script>
+        function calculateDesalination() {
+            const capacity = parseFloat(document.getElementById('desal-capacity').value) || 0;
+            const tech = document.getElementById('desal-tech').value;
+            const energyCost = parseFloat(document.getElementById('desal-energy-cost').value) || 0;
+            const incentive = parseFloat(document.getElementById('desal-incentive').value) / 100 || 0;
+
+            const techData = {
+                ro: { capexPerM3: 1200, energyPerM3: 3.5 },
+                med: { capexPerM3: 1800, energyPerM3: 10.0 }
+            };
+
+            const selectedTech = techData[tech];
+
+            const initialCapex = capacity * selectedTech.capexPerM3;
+            const finalCapex = initialCapex * (1 - incentive);
+
+            const dailyEnergy = capacity * selectedTech.energyPerM3;
+            const annualEnergyCost = dailyEnergy * 365 * energyCost;
+            const annualMaintenance = finalCapex * 0.02; // %2 of CAPEX
+            const annualOpex = annualEnergyCost + annualMaintenance;
+
+            const annualProduction = capacity * 365;
+            const amortization = finalCapex / 20; // 20 yıl amortisman
+            const unitCost = (annualOpex + amortization) / annualProduction;
+
+            const resultsDiv = document.getElementById('desal-results');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `
+                <div class="result-item">
+                    <span>Toplam Yatırım Maliyeti:</span>
+                    <span class="result-value">${(finalCapex / 1e6).toFixed(2)} Milyon $</span>
+                </div>
+                <div class="result-item">
+                    <span>Yıllık İşletme Gideri (OPEX):</span>
+                    <span class="result-value">${(annualOpex / 1e6).toFixed(2)} Milyon $</span>
+                </div>
+                 <div class="result-item">
+                    <span>Yıllık Su Üretimi:</span>
+                    <span class="result-value">${(annualProduction / 1e6).toFixed(2)} Milyon m³</span>
+                </div>
+                <div class="result-item" style="border-top: 2px solid #27ae60; padding-top: 10px; margin-top:10px;">
+                    <strong>1 m³ Suyun Üretim Maliyeti:</strong>
+                    <strong class="result-value">${unitCost.toFixed(2)} $</strong>
+                </div>
+            `;
+        }
+    </script>
 </body>
 </html> 
