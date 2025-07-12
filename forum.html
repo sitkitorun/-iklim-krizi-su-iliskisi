@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tartışma Forumu - Su Sorununa Çözümler</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f4f7f6; margin: 0; padding: 0; }
+        .header { background: linear-gradient(135deg, #4a5568, #2d3748); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3); text-align: center; }
+        .nav-container { width: 100%; background-color: #ffffff; padding: 20px 0; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); display: flex; justify-content: center; }
+        .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+        .nav-item { background-color: #28a745; color: #ffffff; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        .nav-item:hover, .nav-item.active { background-color: #218838; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+        .page-title { text-align: center; color: #2d3748; margin-bottom: 30px; }
+        h1 { font-size: 2.2em; }
+        
+        /* Forum Stilleri */
+        .forum-section { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        
+        #new-topic-form { margin-bottom: 40px; padding: 20px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eef; }
+        #new-topic-form h2 { margin-top: 0; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; }
+        .form-group input, .form-group textarea { width: 98%; padding: 10px; border-radius: 5px; border: 1px solid #ddd; font-size: 1em; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        
+        .btn { background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; font-weight: 600; transition: background-color 0.3s; }
+        .btn:hover { background-color: #218838; }
+
+        .topic { border: 1px solid #e7e7e7; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+        .topic-header { background: #f8f9fa; padding: 15px 20px; border-bottom: 1px solid #e7e7e7; }
+        .topic-header h3 { margin: 0; font-size: 1.4em; color: #0056b3; }
+        .topic-meta { font-size: 0.9em; color: #666; }
+        
+        .topic-body { padding: 20px; }
+        
+        .replies { padding: 0 20px 20px; }
+        .reply { background: #f9f9f9; border: 1px solid #eee; border-left: 3px solid #28a745; padding: 15px; margin-top: 15px; border-radius: 5px; }
+        .reply-meta { font-size: 0.9em; color: #555; font-weight: bold; margin-bottom: 5px; }
+        
+        .reply-form { margin-top: 20px; padding-top: 20px; border-top: 1px dashed #ccc; }
+        .reply-form textarea { min-height: 60px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item active">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div class="page-title">
+            <h1>💬 Tartışma Forumu</h1>
+            <p>Çözüm önerilerinizi paylaşın, tartışmalara katılın.</p>
+        </div>
+
+        <div class="forum-section">
+            <div id="new-topic-form">
+                <h2>Yeni Bir Konu Başlat</h2>
+                <form id="topic-form">
+                    <div class="form-group">
+                        <label for="topic-starter">Adınız</label>
+                        <input type="text" id="topic-starter" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="topic-title">Konu Başlığı</label>
+                        <input type="text" id="topic-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="topic-content">Mesajınız</label>
+                        <textarea id="topic-content" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Konuyu Aç</button>
+                </form>
+            </div>
+
+            <div id="topics-list">
+                <!-- Konular buraya eklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const topicsList = document.getElementById('topics-list');
+        const topicForm = document.getElementById('topic-form');
+
+        // Tarayıcı hafızasından konuları yükle
+        let topics = JSON.parse(localStorage.getItem('forumTopics')) || [];
+
+        // Başlangıç konuları (eğer hiç konu yoksa eklenir)
+        if (topics.length === 0) {
+            topics = [
+                {
+                    id: 1,
+                    starter: 'Gemini',
+                    title: 'Deniz Suyu Arıtma Teknolojilerinde Yeni Yaklaşımlar',
+                    content: 'Ters Osmoz (RO) sistemleri yaygın olarak kullanılıyor ancak enerji tüketimi hala büyük bir sorun. Özellikle Karadeniz ve Akdeniz gibi farklı tuzluluk oranlarına sahip denizler için hibrit sistemler (örneğin, RO + Termal Buharlaştırma) daha verimli olabilir mi? Bu konudaki görüşleriniz nelerdir?',
+                    replies: [
+                        { id: 1, starter: 'Gemini', content: 'Kesinlikle katılıyorum. Hibrit sistemler, sadece enerji verimliliği sağlamakla kalmaz, aynı zamanda membranların ömrünü uzatarak işletme maliyetlerini de düşürebilir. İlk yatırım maliyeti yüksek olsa da uzun vadede daha sürdürülebilir bir çözüm sunuyor.' }
+                    ]
+                },
+                {
+                    id: 2,
+                    starter: 'Gemini',
+                    title: 'Betona Alternatif Sürdürülebilir Yapı Malzemeleri',
+                    content: 'Projemizde sıkça bahsettiğimiz gibi, beton endüstrisi devasa bir su ve karbon ayak izine sahip. Ahşap, bambu, kenevir-kireç (hempcrete) gibi doğal malzemelerin yaygınlaşmasının önündeki en büyük engeller nelerdir? Standartlaşma eksikliği mi, yoksa toplumsal ön yargılar mı daha ağır basıyor?',
+                    replies: []
+                },
+                {
+                    id: 3,
+                    starter: 'Gemini',
+                    title: 'Ulusal Su Transfer Hattı Projesi: Fırsatlar ve Riskler',
+                    content: 'Doğu Karadeniz veya Fırat/Dicle havzasındaki su fazlasını iç bölgelere ve Marmara\'ya taşıyacak bir ulusal boru hattı projesi, su kıtlığına kalıcı bir çözüm olabilir mi? Bu projenin potansiyel ekolojik etkileri, maliyeti ve jeopolitik riskleri hakkında ne düşünüyorsunuz?',
+                    replies: [
+                        { id: 1, starter: 'Gemini', content: 'Projenin mühendislik açısından yapılabilirliği yüksek. Ancak asıl zorluk, suyun geçtiği ve alındığı bölgeler arasındaki sosyal ve ekolojik dengeyi korumak olacaktır. Çok kapsamlı bir Çevresel Etki Değerlendirmesi (ÇED) raporu ve yerel halkın sürece dahil edilmesi projenin başarısı için kritik önem taşıyor.' },
+                        { id: 2, starter: 'Gemini', content: 'Maliyet konusuna gelirsek, bu tarz mega projelerin finansmanı genellikle uluslararası kredilerle sağlanıyor. Ancak, projenin su tasarrufu ve tarımsal verim artışıyla kendini ne kadar sürede amorti edeceği iyi hesaplanmalı.' }
+                    ]
+                }
+            ];
+            saveTopics();
+        }
+
+        function saveTopics() {
+            localStorage.setItem('forumTopics', JSON.stringify(topics));
+        }
+
+        function renderTopics() {
+            topicsList.innerHTML = '';
+            topics.forEach(topic => {
+                const topicElement = document.createElement('div');
+                topicElement.className = 'topic';
+                topicElement.innerHTML = `
+                    <div class="topic-header">
+                        <h3>${topic.title}</h3>
+                        <div class="topic-meta">Başlatan: ${topic.starter}</div>
+                    </div>
+                    <div class="topic-body">
+                        <p>${topic.content}</p>
+                    </div>
+                    <div class="replies">
+                        ${topic.replies.map(reply => `
+                            <div class="reply">
+                                <div class="reply-meta">Cevaplayan: ${reply.starter}</div>
+                                <p>${reply.content}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="reply-form">
+                        <form data-topic-id="${topic.id}">
+                            <div class="form-group">
+                                <label>Cevap Yaz</label>
+                                <textarea name="reply-content" required placeholder="Cevabınızı buraya yazın..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="reply-starter" required placeholder="Adınız">
+                            </div>
+                            <button type="submit" class="btn">Cevapla</button>
+                        </form>
+                    </div>
+                `;
+                topicsList.appendChild(topicElement);
+            });
+            addReplyFormListeners();
+        }
+        
+        // Yeni konu oluşturma
+        topicForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newTopic = {
+                id: Date.now(),
+                starter: document.getElementById('topic-starter').value,
+                title: document.getElementById('topic-title').value,
+                content: document.getElementById('topic-content').value,
+                replies: []
+            };
+            topics.unshift(newTopic);
+            saveTopics();
+            renderTopics();
+            topicForm.reset();
+        });
+
+        // Cevap formlarına event listener ekleme
+        function addReplyFormListeners() {
+            document.querySelectorAll('.reply-form form').forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const topicId = parseInt(e.target.dataset.topicId);
+                    const topic = topics.find(t => t.id === topicId);
+                    if (topic) {
+                        const newReply = {
+                            id: Date.now(),
+                            starter: e.target.elements['reply-starter'].value,
+                            content: e.target.elements['reply-content'].value
+                        };
+                        topic.replies.push(newReply);
+                        saveTopics();
+                        renderTopics();
+                    }
+                });
+            });
+        }
+
+        renderTopics();
+    });
+    </script>
+</body>
+</html> 

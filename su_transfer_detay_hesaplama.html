@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Transfer Detaylı Hesaplama ve Optimizasyon</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin: 15px 0;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .calc-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px 5px;
+        }
+        
+        .calc-btn:hover { background: #2980b9; }
+        
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .result-table th, .result-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .result-table th {
+            background: #3498db;
+            color: white;
+        }
+        
+        .optimization-chart {
+            height: 300px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="index.html" style="display: inline-block; padding: 10px 20px; background: #3498db; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">🏠 Ana Sayfa</a>
+        </div>
+
+        <div class="page-title">
+            <h1>🚰 SU TRANSFER DETAYLI HESAPLAMA</h1>
+            <p>Nüfus Bazlı Su İhtiyacı ve Güzergah Optimizasyonu</p>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">🎯 NEDEN SU TRANSFERİ GEREKLİ?</h2>
+            
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h3 style="color: #2e7d32; margin-bottom: 15px;">📊 Bölgesel Dengesizlik</h3>
+                <p>Türkiye'de su kaynakları coğrafi olarak dengesiz dağılmış durumda:</p>
+                <ul style="margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Karadeniz:</strong> Yıllık 52 milyar m³ (%40) - Nüfus %8</li>
+                    <li><strong>İç Anadolu:</strong> Yıllık 8 milyar m³ (%6) - Nüfus %24</li>
+                    <li><strong>Marmara:</strong> Yıllık 11 milyar m³ (%8) - Nüfus %32</li>
+                    <li><strong>Güneydoğu:</strong> Yıllık 32 milyar m³ (%25) - Nüfus %12</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff3e0; padding: 20px; border-radius: 10px;">
+                <h3 style="color: #f57c00; margin-bottom: 15px;">💸 Ekonomik Gerçek</h3>
+                <p><strong>Su artık petrolden daha değerli!</strong> Su transfer projeleri ile:</p>
+                <ul style="margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Birim maliyet:</strong> 3-5 $/m³ (petrol eşdeğeri: 2-3 $/litre)</li>
+                    <li><strong>Denizlere dökülen su:</strong> Yıllık 75 milyar m³ = 300 milyar $ değer kaybı</li>
+                    <li><strong>Yurtdışına çıkan su:</strong> Dicle-Fırat'tan yıllık 30 milyar m³</li>
+                    <li><strong>Ekonomik kazanç:</strong> Her 1 m³ su = 10-15 $ GDP katkısı</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="calc-grid">
+            <!-- NÜFUS VE İHTİYAÇ HESAPLAYICI -->
+            <div class="card">
+                <h3>👥 Nüfus ve Su İhtiyacı Hesaplayıcısı</h3>
+                
+                <div class="form-group">
+                    <label for="city">Şehir Seçimi:</label>
+                    <select id="city" onchange="updateCityData()">
+                        <option value="istanbul">İstanbul</option>
+                        <option value="ankara">Ankara</option>
+                        <option value="izmir">İzmir</option>
+                        <option value="antalya">Antalya</option>
+                        <option value="konya">Konya</option>
+                        <option value="adana">Adana</option>
+                        <option value="gaziantep">Gaziantep</option>
+                        <option value="bursa">Bursa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="population">Mevcut Nüfus (2024):</label>
+                    <input type="number" id="population" value="15500000">
+                </div>
+
+                <div class="form-group">
+                    <label for="growth-rate">Yıllık Nüfus Artış Oranı (%):</label>
+                    <input type="number" id="growth-rate" value="1.8" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label for="per-capita">Kişi Başı Su Tüketimi (L/gün):</label>
+                    <input type="number" id="per-capita" value="170">
+                </div>
+
+                <div class="form-group">
+                    <label for="industrial">Endüstriyel Su Talebi (milyon m³/yıl):</label>
+                    <input type="number" id="industrial" value="800">
+                </div>
+
+                <button class="calc-btn" onclick="calculateWaterDemand()">Su Talebini Hesapla</button>
+
+                <div id="demand-results"></div>
+            </div>
+
+            <!-- GÜZERGAH OPTİMİZASYONU -->
+            <div class="card">
+                <h3>🗺️ Güzergah Optimizasyon Hesaplayıcısı</h3>
+                
+                <div class="form-group">
+                    <label for="source">Kaynak Lokasyonu:</label>
+                    <select id="source">
+                        <option value="samsun">Samsun (Karadeniz Havzası)</option>
+                        <option value="artvin">Artvin (Çoruh Havzası)</option>
+                        <option value="erzurum">Erzurum (Doğu Anadolu)</option>
+                        <option value="elazig">Elazığ (Fırat Havzası)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination">Hedef Şehir:</label>
+                    <select id="destination">
+                        <option value="istanbul">İstanbul</option>
+                        <option value="ankara">Ankara</option>
+                        <option value="konya">Konya</option>
+                        <option value="antalya">Antalya</option>
+                        <option value="izmir">İzmir</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="capacity">Transfer Kapasitesi (m³/s):</label>
+                    <input type="number" id="capacity" value="120">
+                </div>
+
+                <div class="form-group">
+                    <label for="terrain">Arazi Zorluğu:</label>
+                    <select id="terrain">
+                        <option value="easy">Kolay (düz arazi)</option>
+                        <option value="medium">Orta (tepeli arazi)</option>
+                        <option value="hard">Zor (dağlık arazi)</option>
+                        <option value="extreme">Çok zor (yüksek dağlar)</option>
+                    </select>
+                </div>
+
+                <button class="calc-btn" onclick="calculateRoute()">Güzergah Optimizasyonu</button>
+
+                <div id="route-results"></div>
+            </div>
+
+            <!-- MALİYET ANALİZİ -->
+            <div class="card">
+                <h3>💰 Maliyet Analizi ve Finansman</h3>
+                
+                <div class="form-group">
+                    <label for="pipe-diameter">Boru Çapı (m):</label>
+                    <input type="number" id="pipe-diameter" value="3.5" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label for="distance">Toplam Mesafe (km):</label>
+                    <input type="number" id="distance" value="850">
+                </div>
+
+                <div class="form-group">
+                    <label for="tunnel-ratio">Tünel Oranı (%):</label>
+                    <input type="number" id="tunnel-ratio" value="35" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="pump-stations">Pompa İstasyon Sayısı:</label>
+                    <input type="number" id="pump-stations" value="8">
+                </div>
+
+                <button class="calc-btn" onclick="calculateCost()">Maliyet Hesapla</button>
+
+                <div id="cost-results"></div>
+            </div>
+
+            <!-- ENERJİ VE EMİSYON ANALİZİ -->
+            <div class="card">
+                <h3>⚡ Enerji Tüketimi ve Emisyon Analizi</h3>
+                
+                <div class="form-group">
+                    <label for="total-head">Toplam Basma Yüksekliği (m):</label>
+                    <input type="number" id="total-head" value="950">
+                </div>
+
+                <div class="form-group">
+                    <label for="pump-efficiency">Pompa Verimliliği (%):</label>
+                    <input type="number" id="pump-efficiency" value="87" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="energy-source">Enerji Kaynağı:</label>
+                    <select id="energy-source">
+                        <option value="grid">Şebeke Elektriği</option>
+                        <option value="hydro">Hidroelektrik</option>
+                        <option value="solar">Güneş Paneli</option>
+                        <option value="wind">Rüzgar Türbini</option>
+                        <option value="mixed">Karma (50% yenilenebilir)</option>
+                    </select>
+                </div>
+
+                <button class="calc-btn" onclick="calculateEnergy()">Enerji Analizi</button>
+
+                <div id="energy-results"></div>
+            </div>
+        </div>
+
+        <!-- SONUÇ ÖZETİ -->
+        <div class="card">
+            <h3>📊 Proje Özeti ve Optimizasyon Sonuçları</h3>
+            <div id="project-summary">
+                <h4>🎯 Ulusal Su Transfer Ana Hatları:</h4>
+                <table class="result-table">
+                    <thead>
+                        <tr><th>Hat Adı</th><th>Güzergah</th><th>Uzunluk</th><th>Kapasite</th><th>Maliyet</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Kuzey-Güney</strong></td><td>Samsun→Ankara→Konya</td><td>850 km</td><td>4.5 milyar m³/yıl</td><td>52 milyar $</td></tr>
+                        <tr><td><strong>Doğu-Batı</strong></td><td>Erzurum→Ankara→İstanbul</td><td>950 km</td><td>3.8 milyar m³/yıl</td><td>46 milyar $</td></tr>
+                        <tr><td><strong>Marmara Ring</strong></td><td>İstanbul↔İzmir↔Bursa</td><td>280 km</td><td>2.7 milyar m³/yıl</td><td>17 milyar $</td></tr>
+                    </tbody>
+                </table>
+                
+                <h4 style="margin-top: 20px;">💡 Optimizasyon Önerileri:</h4>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>Fazlı Yaklaşım:</strong> En kritik hatlardan başlama (İstanbul, Konya)</li>
+                    <li><strong>Enerji Entegrasyonu:</strong> Pompa istasyonlarına güneş paneli kurulumu</li>
+                    <li><strong>Akıllı Yönetim:</strong> SCADA sistemi ile %15 verimlilik artışı</li>
+                    <li><strong>Finansman:</strong> PPP modeli + yeşil tahvil + uluslararası fonlar</li>
+                </ul>
+            </div>
+            <div style="margin-top: 20px; padding: 20px; background: #e3f2fd; border-radius: 10px;">
+                <p style="text-align: center; font-size: 1.1em; color: #1976d2;">
+                    <strong>Toplam Yatırım:</strong> 115 milyar $ | 
+                    <strong>Toplam Kapasite:</strong> 11 milyar m³/yıl | 
+                    <strong>Geri Ödeme:</strong> 8-12 yıl
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Şehir verileri
+        const cityData = {
+            istanbul: { population: 15500000, perCapita: 170, industrial: 800, current: 2100 },
+            ankara: { population: 5700000, perCapita: 160, industrial: 300, current: 800 },
+            izmir: { population: 4400000, perCapita: 155, industrial: 400, current: 700 },
+            antalya: { population: 2600000, perCapita: 220, industrial: 100, current: 400 },
+            konya: { population: 2300000, perCapita: 140, industrial: 2600, current: 600 },
+            adana: { population: 2300000, perCapita: 165, industrial: 250, current: 500 },
+            gaziantep: { population: 2100000, perCapita: 150, industrial: 200, current: 450 },
+            bursa: { population: 3100000, perCapita: 160, industrial: 350, current: 650 }
+        };
+
+        function updateCityData() {
+            const city = document.getElementById('city').value;
+            const data = cityData[city];
+            
+            document.getElementById('population').value = data.population;
+            document.getElementById('per-capita').value = data.perCapita;
+            document.getElementById('industrial').value = data.industrial;
+        }
+
+        function calculateWaterDemand() {
+            const population = parseInt(document.getElementById('population').value);
+            const growthRate = parseFloat(document.getElementById('growth-rate').value) / 100;
+            const perCapita = parseInt(document.getElementById('per-capita').value);
+            const industrial = parseInt(document.getElementById('industrial').value);
+            
+            // 2030 ve 2050 projeksiyonları
+            const pop2030 = population * Math.pow(1 + growthRate, 6);
+            const pop2050 = population * Math.pow(1 + growthRate, 26);
+            
+            // Su talebi hesaplamaları (milyon m³/yıl)
+            const domestic2024 = (population * perCapita * 365) / 1e9;
+            const domestic2030 = (pop2030 * perCapita * 365) / 1e9;
+            const domestic2050 = (pop2050 * perCapita * 365) / 1e9;
+            
+            const total2024 = domestic2024 + industrial;
+            const total2030 = domestic2030 + industrial * 1.2; // %20 endüstriyel artış
+            const total2050 = domestic2050 + industrial * 1.5; // %50 endüstriyel artış
+            
+            const results = `
+                <h4>Su Talebi Projeksiyonları:</h4>
+                <table class="result-table">
+                    <thead>
+                        <tr><th>Yıl</th><th>Nüfus</th><th>Evsel (milyon m³)</th><th>Endüstriyel</th><th>Toplam</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2024</td><td>${(population/1e6).toFixed(1)}M</td><td>${domestic2024.toFixed(0)}</td><td>${industrial}</td><td>${total2024.toFixed(0)}</td></tr>
+                        <tr><td>2030</td><td>${(pop2030/1e6).toFixed(1)}M</td><td>${domestic2030.toFixed(0)}</td><td>${(industrial*1.2).toFixed(0)}</td><td>${total2030.toFixed(0)}</td></tr>
+                        <tr><td>2050</td><td>${(pop2050/1e6).toFixed(1)}M</td><td>${domestic2050.toFixed(0)}</td><td>${(industrial*1.5).toFixed(0)}</td><td>${total2050.toFixed(0)}</td></tr>
+                    </tbody>
+                </table>
+            `;
+            
+            document.getElementById('demand-results').innerHTML = results;
+        }
+
+        function calculateRoute() {
+            const source = document.getElementById('source').value;
+            const destination = document.getElementById('destination').value;
+            const capacity = parseInt(document.getElementById('capacity').value);
+            const terrain = document.getElementById('terrain').value;
+            
+            // Mesafe hesaplaması (basitleştirilmiş)
+            const distances = {
+                'samsun-istanbul': 750, 'samsun-ankara': 420, 'samsun-konya': 680,
+                'artvin-istanbul': 950, 'artvin-ankara': 850, 'artvin-izmir': 1200,
+                'erzurum-ankara': 650, 'erzurum-konya': 580, 'erzurum-antalya': 780
+            };
+            
+            const routeKey = `${source}-${destination}`;
+            const distance = distances[routeKey] || 800;
+            
+            // Arazi zorluğu faktörleri
+            const terrainFactors = {
+                easy: { cost: 1.0, time: 1.0, tunnel: 0.05 },
+                medium: { cost: 1.3, time: 1.2, tunnel: 0.15 },
+                hard: { cost: 1.8, time: 1.5, tunnel: 0.35 },
+                extreme: { cost: 2.5, time: 2.0, tunnel: 0.60 }
+            };
+            
+            const factor = terrainFactors[terrain];
+            const tunnelLength = distance * factor.tunnel;
+            const openCut = distance - tunnelLength;
+            
+            // Yıllık kapasite
+            const annualCapacity = capacity * 31.536; // m³/s to milyon m³/yıl
+            
+            const results = `
+                <h4>Güzergah Analizi:</h4>
+                <table class="result-table">
+                    <thead>
+                        <tr><th>Parametre</th><th>Değer</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Toplam Mesafe</td><td>${distance} km</td></tr>
+                        <tr><td>Açık Kazı</td><td>${openCut.toFixed(0)} km</td></tr>
+                        <tr><td>Tünel</td><td>${tunnelLength.toFixed(0)} km</td></tr>
+                        <tr><td>Yıllık Kapasite</td><td>${annualCapacity.toFixed(1)} milyon m³</td></tr>
+                        <tr><td>İnşaat Süresi</td><td>${(5 * factor.time).toFixed(1)} yıl</td></tr>
+                    </tbody>
+                </table>
+            `;
+            
+            document.getElementById('route-results').innerHTML = results;
+            document.getElementById('distance').value = distance;
+            document.getElementById('tunnel-ratio').value = (factor.tunnel * 100).toFixed(0);
+        }
+
+        function calculateCost() {
+            const diameter = parseFloat(document.getElementById('pipe-diameter').value);
+            const distance = parseInt(document.getElementById('distance').value);
+            const tunnelRatio = parseInt(document.getElementById('tunnel-ratio').value) / 100;
+            const pumpStations = parseInt(document.getElementById('pump-stations').value);
+            
+            // Maliyet hesaplamaları (milyon USD)
+            const openCutCost = (distance * (1 - tunnelRatio)) * (8 + diameter * 2); // USD/km
+            const tunnelCost = (distance * tunnelRatio) * (25 + diameter * 15); // USD/km
+            const pumpCost = pumpStations * (180 + diameter * 50); // USD per station
+            const pipeCost = distance * (2 + Math.pow(diameter, 2) * 1.5); // USD/km
+            
+            const totalCost = openCutCost + tunnelCost + pumpCost + pipeCost;
+            const contingency = totalCost * 0.25; // %25 kontinjensi
+            const finalCost = totalCost + contingency;
+            
+            const results = `
+                <h4>Maliyet Analizi (milyon USD):</h4>
+                <table class="result-table">
+                    <thead>
+                        <tr><th>Maliyet Kalemi</th><th>Miktar</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Açık Kazı</td><td>${openCutCost.toFixed(0)}</td></tr>
+                        <tr><td>Tünel İnşaatı</td><td>${tunnelCost.toFixed(0)}</td></tr>
+                        <tr><td>Pompa İstasyonları</td><td>${pumpCost.toFixed(0)}</td></tr>
+                        <tr><td>Boru Hattı</td><td>${pipeCost.toFixed(0)}</td></tr>
+                        <tr><td>Kontinjensi (%25)</td><td>${contingency.toFixed(0)}</td></tr>
+                        <tr style="font-weight: bold;"><td>TOPLAM</td><td>${finalCost.toFixed(0)}</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>m³ başına maliyet:</strong> ${(finalCost / (parseInt(document.getElementById('capacity').value) * 31.536)).toFixed(2)} USD/m³</p>
+            `;
+            
+            document.getElementById('cost-results').innerHTML = results;
+        }
+
+        function calculateEnergy() {
+            const totalHead = parseInt(document.getElementById('total-head').value);
+            const efficiency = parseInt(document.getElementById('pump-efficiency').value) / 100;
+            const capacity = parseInt(document.getElementById('capacity').value);
+            const energySource = document.getElementById('energy-source').value;
+            
+            // Enerji hesaplamaları
+            const powerRequired = (capacity * totalHead * 9.81) / (efficiency * 1000); // MW
+            const annualEnergy = powerRequired * 8760; // MWh/yıl
+            
+            // Emisyon faktörleri (kg CO2/MWh)
+            const emissionFactors = {
+                grid: 520, hydro: 24, solar: 48, wind: 11, mixed: 290
+            };
+            
+            const annualEmission = (annualEnergy * emissionFactors[energySource]) / 1000; // ton CO2/yıl
+            
+            // İşletme maliyeti (USD/yıl)
+            const energyCosts = {
+                grid: 80, hydro: 40, solar: 30, wind: 25, mixed: 55
+            };
+            
+            const operatingCost = annualEnergy * energyCosts[energySource] / 1000; // bin USD/yıl
+            
+            const results = `
+                <h4>Enerji Analizi:</h4>
+                <table class="result-table">
+                    <thead>
+                        <tr><th>Parametre</th><th>Değer</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Güç İhtiyacı</td><td>${powerRequired.toFixed(1)} MW</td></tr>
+                        <tr><td>Yıllık Enerji</td><td>${(annualEnergy/1000).toFixed(0)} GWh</td></tr>
+                        <tr><td>CO2 Emisyonu</td><td>${annualEmission.toFixed(0)} ton/yıl</td></tr>
+                        <tr><td>İşletme Maliyeti</td><td>${operatingCost.toFixed(0)} bin USD/yıl</td></tr>
+                        <tr><td>Birim Enerji Maliyeti</td><td>${(operatingCost*1000/annualEnergy).toFixed(2)} USD/MWh</td></tr>
+                    </tbody>
+                </table>
+            `;
+            
+            document.getElementById('energy-results').innerHTML = results;
+        }
+
+        // Sayfa yüklendiğinde İstanbul verilerini göster
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCityData();
+        });
+    </script>
+</body>
+</html> 

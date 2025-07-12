@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su ve İklim Krizi: Endüstriyel Sorumluluk Analizi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .top-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1.8fr; /* Sol sütun daha dar */
+            gap: 30px;
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .top-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 300;
+        }
+        .left-panel, .right-panel {
+            display: flex;
+            flex-direction: column;
+        }
+        .left-panel .card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 5px solid #2ecc71;
+            padding: 25px;
+            border-radius: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .left-panel .card h3 {
+            color: #2ecc71;
+            margin-bottom: 15px;
+        }
+        .left-panel .card ul {
+            list-style: none;
+            padding-left: 0;
+            flex-grow: 1;
+        }
+        .left-panel .card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .left-panel .card li::before {
+            content: '🔹';
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+        }
+
+        .right-panel .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .right-panel .info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-panel .info-card h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        .right-panel .info-card ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9em;
+            flex-grow: 1;
+        }
+        .right-panel .info-card li {
+            padding-bottom: 5px;
+        }
+        .right-panel .emissions-table {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .right-panel .quote {
+            font-size: 1em;
+            background: rgba(0,0,0,0.15);
+            border-left: 3px solid #3498db;
+            padding: 15px;
+            margin: 0 0 15px 0;
+            font-style: italic;
+        }
+        .reference {
+            font-size: 0.8em;
+            opacity: 0.7;
+            margin-top: auto;
+            padding-top: 10px;
+            display: block;
+        }
+        
+        .emissions-table th,
+        .emissions-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .emissions-table th {
+            background: rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+        
+        .emissions-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .highlight {
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .reference {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card.analysis { border-left-color: #e74c3c; }
+        .card.industry { border-left-color: #f39c12; }
+        .card.alternatives { border-left-color: #2ecc71; }
+        .card.projects { border-left-color: #9b59b6; }
+        .card.implementation { border-left-color: #1abc9c; }
+        .card.calculations { border-left-color: #34495e; }
+        .card.new { border-left-color: #e67e22; }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .subsection {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 5px 0;
+            border-left: 3px solid #3498db;
+        }
+        
+        .subsection h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .subsection ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .subsection li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .subsection li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff; /* Beyaz arka plan */
+            padding: 20px 0;
+            border-radius: 15px; /* Oval kenarlar */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Butonlar arası boşluk */
+        }
+
+        .nav-item {
+            background-color: #28a745; /* Yeşil arka plan */
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px; /* Hap şeklinde kenarlar */
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838; /* Koyu yeşil hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .expansion-note {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .coming-soon {
+            opacity: 0.7;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card.analysis { border-left-color: #e74c3c; }
+        .card.industry { border-left-color: #f39c12; }
+        .card.alternatives { border-left-color: #2ecc71; }
+        .card.projects { border-left-color: #9b59b6; }
+        .card.implementation { border-left-color: #1abc9c; }
+        .card.calculations { border-left-color: #34495e; }
+        .card.new { border-left-color: #e67e22; }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .subsection {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 5px 0;
+            border-left: 3px solid #3498db;
+        }
+        
+        .subsection h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .subsection ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .subsection li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .subsection li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .sector-footprints {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .footprint-card {
+            background-color: rgba(44, 62, 80, 0.85);
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .footprint-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .footprint-card h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .footprint-card p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .footprint-card .source {
+            font-size: 0.8em;
+            color: #bdc3c7;
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .page-footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background-color: rgba(44, 62, 80, 0.9);
+            color: #ecf0f1;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .page-footer p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        .visitor-counter {
+            margin-top: 15px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item active">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <header class="header">
+            <h1>🌍 SU VE İKLİM KRİZİ</h1>
+            <p class="subtitle">Endüstriyel Sorumluluk ve Çözüm Stratejileri</p>
+        </header>
+
+        <div class="top-section">
+            <div class="left-panel">
+                <h2>📜 YENİ İKLİM KANUNU (ÖZET)</h2>
+                <div class="card">
+                    <h3>Temel Yükümlülükler ve Hedefler</h3>
+                    <p>TBMM'de kabul edilerek yasalaşan Türkiye'nin ilk İklim Kanunu, 2053 Net Sıfır Emisyon hedefi doğrultusunda kritik adımlar içermektedir. Kanun, sanayiden ulaşıma, tarımdan şehir planlamasına kadar geniş bir yelpazede yeşil dönüşümü zorunlu kılmaktadır.</p>
+                    <ul>
+                        <li><b>Emisyon Ticaret Sistemi (ETS):</b> AB ile uyumlu ulusal bir karbon piyasası kurulacak. Bu sistemle sanayi tesislerinin emisyonlarına bir tavan getirilecek ve bu sınırı aşanlar için maliyet, altında kalanlar için ise gelir mekanizması oluşturulacak.</li>
+                        <li><b>Yeşil Finansman:</b> ETS'den elde edilecek gelirler, doğrudan yeşil dönüşüm projelerine (yenilenebilir enerji, enerji verimliliği vb.) aktarılacak ve düşük karbonlu yatırımlar teşvik edilecek.</li>
+                        <li><b>Temiz Teknoloji:</b> Karbon yakalama, kullanma ve depolama (CCUS) ile yeşil hidrojen gibi stratejik teknolojilerin geliştirilmesi ve yaygınlaştırılması için Ar-Ge faaliyetleri desteklenecek.</li>
+                        <li><b>Yerel Eylem:</b> Belediyeler, 31 Aralık 2027'ye kadar kendi bölgelerine özel iklim değişikliğiyle mücadele ve uyum eylem planlarını hazırlamakla yükümlü olacak.</li>
+                    </ul>
+                    <a href="https://csb.gov.tr/turkiyenin-ilk-iklim-kanunu-tbmm-de-kabul-edildi-bakanlik-faaliyetleri-41712" target="_blank" class="reference" style="color: #2ecc71; text-decoration: underline; font-weight: bold; font-size: 1em; margin-top: 15px; display: inline-block;">Kanun Detayları için Tıklayınız (Kaynak: ÇŞİB)</a>
+                </div>
+            </div>
+            <div class="right-panel">
+                <h2>📊 SEKTÖREL AYAK İZLERİ</h2>
+                <div class="card-grid">
+                    <div class="info-card">
+                        <h4>🏗️ Çimento & Beton</h4>
+                        <ul>
+                            <li><b>CO2:</b> ~900 kg/ton çimento</li>
+                            <li><b>Su:</b> ~1,700 L/ton çimento</li>
+                            <li>(Beton: ~250 kg CO2, ~650 L su / m³)</li>
+                        </ul>
+                        <span class="reference">Kaynak: GCCA, PCA</span>
+                    </div>
+                    <div class="info-card">
+                        <h4>🔥 Demir-Çelik</h4>
+                        <ul>
+                            <li><b>CO2:</b> ~1.85 ton/ton çelik</li>
+                            <li><b>Su:</b> ~20 m³/ton çelik</li>
+                        </ul>
+                        <span class="reference">Kaynak: World Steel Assoc.</span>
+                    </div>
+                    <div class="info-card">
+                        <h4>🛍️ Plastik</h4>
+                        <ul>
+                            <li><b>CO2:</b> ~2.0 kg/kg plastik</li>
+                            <li><b>Su:</b> ~80 L/kg plastik</li>
+                        </ul>
+                        <span class="reference">Kaynak: PlasticsEurope</span>
+                    </div>
+                     <div class="info-card">
+                        <h4>⚡ Enerji Üretimi</h4>
+                        <ul>
+                            <li><b>Kömür:</b> 950 kg CO2, 2.5 m³ su / MWh</li>
+                            <li><b>Doğalgaz:</b> 400 kg CO2, 0.8 m³ su / MWh</li>
+                        </ul>
+                        <span class="reference">Kaynak: IEA</span>
+                    </div>
+                </div>
+                <div class="quote">
+                    "İklim değişikliği ve su krizi, bireysel davranışlardan ziyade, endüstriyel üretim sistemlerinin dönüşümünü gerektiren sistemik sorunlardır."
+                </div>
+                <table class="emissions-table">
+                    <thead>
+                        <tr>
+                            <th>Dönem</th>
+                            <th>En Büyük Emisyon Kaynağı</th>
+                            <th>Kümülatif Oran</th>
+                            <th>Ana Sektör</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1750-1850</td><td>Birleşik Krallık</td><td>%55</td><td>Kömür & Tekstil</td></tr>
+                        <tr><td>1850-1950</td><td>ABD</td><td>%35</td><td>Çelik & Otomotiv</td></tr>
+                        <tr><td>1950-2000</td><td>ABD + AB</td><td>%45</td><td>Petrokimya & Enerji</td></tr>
+                        <tr><td>2000-2024</td><td>Çin + ABD</td><td>%40</td><td>İmalat & İnşaat</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start; background: white; padding: 30px; border-radius: 15px; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px;">
+            <div style="flex: 3; min-width: 350px;">
+                <h2 style="color: #c0392b; border-bottom: 2px solid #c0392b; padding-bottom: 10px; margin-bottom: 20px;">İKLİM KANUNU'NUN GÖRMEDİĞİ KRİZ: SU & BETON</h2>
+                <p style="margin-bottom: 15px; font-size: 1.05em;">9 Temmuz 2025 tarihinde Türkiye'nin İklim Kanunu resmi gazetede yayınlanarak yürürlüğe girdi. Bu kanun temelde Paris İklim Anlaşmasını referans alarak hazırlanmış ve temelde Karbon emisyonları, denetim ve izleme kurulları, detayları henüz belli olmasa da ETS sistemi ve yoruma halen açık olan gıda, tarım, sanayi ve diğer düzenlemeleri de içermektedir. Bu sayfanın yapılış amaçları bunları açıklamak veya eleştirmek değildir.</p>
+                <p style="margin-bottom: 15px; font-weight: bold; color: #2c3e50; font-size: 1.05em;">Asıl amaç iklim değişiminde karbon ve diğer sera gazlarından daha fazla etkiye sahip olduğunu düşündüğüm ve sadece Türkiye'nin değil tüm dünyanın görmezden geldiği <strong>SU</strong> KRİZİ ve <strong>Hazır Betonun</strong> <strong>su</strong> tüketimi üzerindeki etkisi ve çözüm önerileri ve draft projelerin tartışmaya açılmasıdır.</p>
+                <p style="font-size: 0.9em; font-style: italic; margin-bottom: 15px; background: #f8f9fa; padding: 10px; border-radius: 5px;">Sayfa içeriğindeki hesaplamaların, verilen rakamların %100 doğruluğunu idda edemem ve bu konudaki sorumluluk reddi beyanını belirtmek zorundayım. Ancak temel yaklaşımların ve hesaplama yöntemlerinin ciddiyetle incelenmesi gerektiğini düşünüyorum.</p>
+                <p style="margin-bottom: 15px; font-size: 1.05em;"><strong>Hazır beton</strong> ülkemizde ve dünya üzerinde <strong>su</strong>dan sonra en fazla tüketilen malzemedir. Aynı zamanda <strong>su</strong> tüketimini en fazla artıran malzeme olduğunu da belirtmek gerekir. Bu yapı malzemesi kimyasal dinamikleri gereği tükettiği <strong>su</strong>yun bir kısmını net olarak <strong>YOK ETMEKTEDİR.</strong></p>
+                <p style="margin-bottom: 15px; font-size: 1.05em;">Evet, tüm diğer doğal ve yapay süreçlerin aksine, <strong>hazır betonun</strong> her 1 m³ içerisinde kimyasal reaksiyonları oluşturan 250 lt <strong>su</strong>, beton yapısı içerisinde hapis kalmaktadır. Bu son 20 yılda 822 milyon m³ <strong>su</strong>yun yok olduğu anlamına gelir. Yani 10 Atatürk Barajı büyüklüğünde bir <strong>su</strong> kütlesi. Beraberinde yeraltı <strong>su</strong> seviyesinin düşmesi, küresel soğutma mekanizmasının zayıflaması, büyük kütlelerin yer değiştirmesi ki son 20 yılda 3,3 milyar ton kireçtaşı ve diğer ham malzemeler <strong>hazır beton</strong> olarak DAĞLARDAN ŞEHİRLERE taşınmıştır.</p>
+                <p style="margin-bottom: 15px; font-size: 1.05em;">Tabii ki iklim değişiminde karbon ve diğer sera gazlarının etkileri bilimsel gerçeklerdir. Ancak <strong>su</strong> krizinin nedenleri, <strong>su</strong> stresinin ölçülmesi ve çözüm önerileri olmadan iklim kanunu ve bağlantıları mutlaka güncellenmeli ve devasa projeler ile çözümler netleştirilmelidir.</p>
+                <p style="margin-bottom: 15px; font-size: 1.05em;">Yapı yüksekliklerinin artması ile birlikte, <strong>beton</strong> kendi kendini taşıyabilmek için daha yüksek dayanım eşiklerine ve daha yüksek birim hacimlerine çıkmak zorundadır. Kendi kendini besleyen bir sorun sarmalı...</p>
+                <p style="font-size: 1.05em;">Ayrıca <strong>hazır beton</strong> ve petrol ve türevlerine karşılık mutlaka alternatif çözümler desteklenmeli, ARGE çalışmaları hızlandırılmalıdır. Küresel şirketlerin bizlere zararlı gösterdiği ama aslında sadece onların gelir kaynaklarına engel olan Kenevir, Aspir, Kanola, geri dönüştürülmüş metal ve plastik ve benzeri gibi malzemeler ile üretilebilecek alternatif yapı, yakıt, tekstil ve kimyasal malzemelerin üretimi ve kullanımı da hızla artırılmalıdır.</p>
+            </div>
+            <div style="flex: 2; min-width: 300px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <iframe style="width: 100%; aspect-ratio: 9 / 16; border-radius: 10px;" src="https://www.youtube.com/embed/QUS32MlDt8Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe style="width: 100%; aspect-ratio: 9 / 16; border-radius: 10px;" src="https://www.youtube.com/embed/MIA_1xQc7x8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe style="width: 100%; aspect-ratio: 9 / 16; border-radius: 10px;" src="https://www.youtube.com/embed/UMxcEQ61gZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe style="width: 100%; aspect-ratio: 9 / 16; border-radius: 10px;" src="https://www.youtube.com/embed/NrQOZfMEXeQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe style="width: 100%; aspect-ratio: 9 / 16; border-radius: 10px;" src="https://www.youtube.com/embed/e46f9M65hhE?start=468" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe style="width: 100%; aspect-ratio: 9 / 16; border-radius: 10px;" src="https://www.youtube.com/embed/T5lyYUyDqCY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <!-- Mevcut Kartlar - Güncellenmiş -->
+            <div class="card analysis" id="analiz">
+                <h3>🔍 KAYNAK ANALİZİ MATRİSİ</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>Sera Gazı-Su Etkileşimi</h4>
+                        <ul>
+                            <li>50 büyük şirketin %80 emisyon rolü</li>
+                            <li>Sektörel emisyon-su tüketim matrisi</li>
+                            <li>İklim değişikliği su döngüsü etkisi</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Küresel Bağlantılar</h4>
+                        <ul>
+                            <li>Petrol savaşları ve su kaynakları</li>
+                            <li>Uluslararası su diplomasisi</li>
+                            <li>Karbon pazarları ve su fiyatlandırması</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="kaynak_analizi.html" style="display: inline-block; padding: 10px 20px; background: #e74c3c; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">📊 Detaylı Analiz</a>
+                    <a href="su_kaynak_gozlem_raporu.html" style="display: inline-block; margin-left: 10px; padding: 10px 20px; background: #1e3c72; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">📈 Makro Gözlem</a>
+                </div>
+            </div>
+
+            <div class="card industry" id="endustri">
+                <h3>🏭 ENDÜSTRİ ETKİSİ ANALİZİ</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>Beton & İnşaat Sektörü</h4>
+                        <ul>
+                            <li>Yılda ort. 41 Milyon m³ su kalıcı olarak betonda hapsediliyor.</li>
+                            <li>Bu su, doğal döngüye bir daha geri dönememektedir.</li>
+                            <li>Alternatif doğal malzeme potansiyeli yüksektir.</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Petrol & Petrokimya</h4>
+                        <ul>
+                            <li>90 milyon m³ rafineri su tüketimi.</li>
+                            <li>Kenevir gibi alternatifler %90 su tasarrufu sunuyor.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="endustri_etkisi.html" style="display: inline-block; padding: 10px 20px; background: #f39c12; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">🏭 Endüstri Analizi</a>
+                </div>
+            </div>
+
+            <div class="card alternatives" id="alternatif">
+                <h3>🌱 ALTERNATİF ÇÖZÜMLER</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>Doğal Malzemeler</h4>
+                        <ul>
+                            <li>Hempcrete: CO2 negatif beton</li>
+                            <li>CLT Ahşap: %92 su tasarrufu</li>
+                            <li>Adobe/Kerpıç: Yerel malzeme</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Plastik Geri Dönüşüm</h4>
+                        <ul>
+                            <li>PET geri dönüşüm: %95 su tasarrufu</li>
+                            <li>HDPE: %93 su azaltımı</li>
+                            <li>1.2 milyon ton/yıl kapasiteyi 200 milyon m³ tasarruf</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="alternatifler.html" style="display: inline-block; padding: 10px 20px; background: #2ecc71; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">🌱 Alternatif Çözümler</a>
+                </div>
+            </div>
+
+            <div class="card projects" id="transfer">
+                <h3>🚰 SU TRANSFER PROJELERİ</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>Ulusal Su Ağı</h4>
+                        <ul>
+                            <li>3 ana hat: Kuzey-Güney, Doğu-Batı, Marmara</li>
+                            <li>11 milyar m³/yıl toplam kapasite</li>
+                            <li>115 milyar $ optimize maliyet</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Teknik Detaylar</h4>
+                        <ul>
+                            <li>2-4m çaplı ana borular</li>
+                            <li>50-100 MW pompa istasyonları</li>
+                            <li>TBM tünel teknolojisi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="su_transfer.html" style="display: inline-block; padding: 10px 20px; background: #9b59b6; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">🗺️ Proje Haritası</a>
+                    <a href="su_transfer_detay_hesaplama.html" style="display: inline-block; margin-left: 10px; padding: 10px 20px; background: #8e44ad; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">📊 Detaylı Hesaplama</a>
+                </div>
+            </div>
+
+            <div class="card implementation" id="uygulama">
+                <h3>⚡ UYGULAMA REHBERLERİ</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>0-3 Ay: Acil Müdahaleler</h4>
+                        <ul>
+                            <li>Yağmur suyu toplama pilot projeleri</li>
+                            <li>Endüstri gri su geri dönüşüm</li>
+                            <li>Su kaçak tespit kampanyaları</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>1-3 Yıl: Uzun Vadeli</h4>
+                        <ul>
+                            <li>Ana su transfer güzergahları</li>
+                            <li>Deniz suyu arıtma tesisleri</li>
+                            <li>Akıllı şehir su yönetimi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="uygulama.html" style="display: inline-block; padding: 10px 20px; background: #1abc9c; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">⚡ Proje Rehberleri</a>
+                </div>
+            </div>
+
+            <div class="card calculations" id="hesaplama">
+                <h3>📊 HESAPLAMA ARAÇLARI</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>İnteraktif Hesaplayıcılar</h4>
+                        <ul>
+                            <li>Beton su tüketimi hesaplayıcı</li>
+                            <li>Plastik geri dönüşüm karşılaştırması</li>
+                            <li>Yağmur suyu toplama potansiyeli</li>
+                            <li>Protein kaynağı su analizi</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Python Araçları</h4>
+                        <ul>
+                            <li>Beton su hesaplayıcı scripti</li>
+                            <li>Su tasarrufu hesaplayıcı</li>
+                            <li>Gerçek zamanlı optimizasyon</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="hesaplama.html" style="display: inline-block; padding: 10px 20px; background: #34495e; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">🧮 Hesaplama Araçları</a>
+                </div>
+            </div>
+
+            <!-- YENİ GENİŞLETİLMİŞ KARTLAR -->
+            <div class="card new" id="seawater">
+                <h3>🌊 DENİZ SUYU ARITMA TEKNOLOJİLERİ</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>Arıtma Teknolojileri</h4>
+                        <ul>
+                            <li>Ters osmoz (RO): 0.70-1.20 $/m³</li>
+                            <li>Çok aşamalı flash buharlaşma (MSF)</li>
+                            <li>Membran distilasyon (MD)</li>
+                            <li>Elektrodiyaliz (ED/EDR)</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Türkiye Master Planı</h4>
+                        <ul>
+                            <li>2050 hedef: 2 milyar m³/yıl kapasiye</li>
+                            <li>Toplam yatırım: 56 milyar $</li>
+                            <li>İstihdam: 450.000 kişi</li>
+                            <li>3 faz: 2027-2035-2050</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="deniz_suyu.html" style="display: inline-block; padding: 10px 20px; background: #e67e22; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">🌊 Deniz Suyu Master Planı</a>
+                </div>
+            </div>
+
+            <div class="card new" id="sectors">
+                <h3>🏢 SEKTÖREL ANALİZLER</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>Ana Sektör Analizleri</h4>
+                        <ul>
+                            <li>✅ Çelik: Proses akımı ve su geri dönüşümü</li>
+                            <li>✅ Çimento & Beton: Kimyasal su bağlanması</li>
+                            <li>✅ Plastik: Virgin hammadde vs. geri dönüşüm</li>
+                            <li>✅ Tekstil: Pamuk tarımı ve ıslak prosesler</li>
+                            <li>✅ Alüminyum: Elektroliz ve Bayer prosesi</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Diğer Kritik Sektörler</h4>
+                        <ul>
+                            <li>✅ Gıda İşleme: Süt, et, fırıncılık</li>
+                            <li>✅ Tarım & Hayvancılık: Sulama optimizasyonu</li>
+                            <li>✅ Madencilik: Altın, bakır, taş ocakları</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="tum_sektorler.html" style="display: inline-block; padding: 10px 20px; background: #e67e22; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">🏢 Tüm Sektör Analizleri</a>
+                </div>
+            </div>
+
+            <div class="card new" id="ets">
+                <h3>💰 ETS SİSTEMİ & VERGİLENDİRME</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>CBAM Tehdidi (2026)</h4>
+                        <ul>
+                            <li>Çelik ihracatı: 4.8 milyar € (+%18-25 maliyet)</li>
+                            <li>Çimento: 0.8 milyar € (+%35-45 maliyet)</li>
+                            <li>Toplam risk: 8-12 milyar €/yıl</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Türkiye ETS Potansiyeli</h4>
+                        <ul>
+                            <li>Karbon fiyatı: 50-70 €/ton CO2</li>
+                            <li>Yıllık vergi geliri: 26 milyar €</li>
+                            <li>Su projelerine: %35 (9.1 milyar €)</li>
+                            <li>İnteraktif simülatör mevcut</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="ets_vergi.html" style="display: inline-block; padding: 10px 20px; background: #e67e22; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">💰 ETS Simülatörü</a>
+                </div>
+            </div>
+
+            <div class="card new" id="recycling">
+                <h3>♻️ GERİ DÖNÜŞÜM & SIFIR ATIK</h3>
+                <div class="card-content">
+                    <div class="subsection">
+                        <h4>Su & Karbon Tasarrufu</h4>
+                        <ul>
+                            <li>Çelik geri dönüşüm: %40 su + %58 CO2 azaltım</li>
+                            <li>Plastik geri dönüşüm: %90 su + %85 CO2 azaltım</li>
+                            <li>Kağıt geri dönüşüm: %60 su + %45 CO2 azaltım</li>
+                            <li>Cam geri dönüşüm: %50 su + %30 CO2 azaltım</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h4>Sektörel Potansiyeller</h4>
+                        <ul>
+                            <li>İnşaat atıkları: %75 geri dönüşüm hedefi</li>
+                            <li>Endüstriyel atıksu: %85 geri kazanım</li>
+                            <li>Ambalaj atıkları: %90 geri dönüşüm</li>
+                            <li>Organik atıklar: %100 kompost</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="geri_donusum.html" style="display: inline-block; padding: 10px 20px; background: #27ae60; color: white; text-decoration: none; border-radius: 20px; font-weight: bold;">♻️ Geri Dönüşüm Detayları</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="page-footer">
+        <p>Hazırlayan: Sıtkı Torun & Gemini 2.5 Pro Max</p>
+        <p><a href="mailto:sitkitorun@gmail.com" style="color: #ecf0f1; text-decoration: none;">sitkitorun@gmail.com</a></p>
+        <div class="visitor-counter">
+            Ziyaretçi Sayısı: <span id="visitor-count">0</span>
+        </div>
+    </footer>
+
+    <script>
+        // Card animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Stat counter animation
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            const finalValue = stat.innerText;
+            stat.innerText = '0';
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const value = parseInt(finalValue);
+                        if (!isNaN(value)) {
+                            animateValue(stat, 0, value, 2000);
+                        } else {
+                            stat.innerText = finalValue;
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            observer.observe(stat);
+        });
+
+        function animateValue(element, start, end, duration) {
+            const startTimestamp = performance.now();
+            const step = (timestamp) => {
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = Math.floor(progress * (end - start) + start);
+                element.innerText = current + (element.nextElementSibling.innerText.includes('%') ? '%' : '');
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            };
+            requestAnimationFrame(step);
+        }
+
+        // Visitor Counter
+        document.addEventListener('DOMContentLoaded', function() {
+            let count = localStorage.getItem('page_view_count');
+            // Sayaç yoksa veya bir sayı değilse, 1'den başlat
+            if (!count || isNaN(Number(count))) {
+                count = 1;
+            } else {
+                count = Number(count) + 1;
+            }
+            localStorage.setItem("page_view_count", count);
+            
+            // Sayacın daha etkileyici görünmesi için bir başlangıç değeri ekleyelim
+            const startOffset = 1100;
+            document.getElementById('visitor-count').innerText = (startOffset + count).toLocaleString('tr-TR');
+        });
+    </script>
+</body>
+</html> 

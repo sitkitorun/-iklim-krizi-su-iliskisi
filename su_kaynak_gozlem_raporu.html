@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Kaynakları Makro Gözlem Raporu - Türkiye</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .nav-item {
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        
+        .nav-item:hover { background: #2980b9; }
+        .nav-item.active { background: #e74c3c; }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 10px;
+        }
+        
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .crisis-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .crisis-table th,
+        .crisis-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .crisis-table th {
+            background: #e74c3c;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .crisis-high { background: #fadbd8 !important; }
+        .crisis-medium { background: #fef9e7 !important; }
+        .crisis-low { background: #d5f4e6 !important; }
+        
+        .trend-chart {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .macro-insight {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="su_kaynak_gozlem_raporu.html" class="nav-item active">📈 Makro Gözlem</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>📈 SU KAYNAKLARI MAKRO GÖZLEM RAPORU</h1>
+            <p>Türkiye Su Tüketimi ve Kaynak Analizi - Kritik Durum Değerlendirmesi</p>
+        </div>
+
+        <!-- GENEL DURUM ÖZETİ -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <span class="stat-number">520</span>
+                <span>milyon ton CO2/yıl<br>Toplam Emisyon</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">40</span>
+                <span>milyar m³/yıl<br>Toplam Su Tüketimi</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">%78</span>
+                <span>Tarım Sektörü<br>Su Kullanımı</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">50</span>
+                <span>Büyük Şirket<br>%80 Küresel Emisyon</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">108</span>
+                <span>milyon m³/yıl<br>Beton Su Tüketimi</span>
+            </div>
+        </div>
+
+        <div class="report-grid">
+            <div class="card">
+                <h3>🚨 KRİTİK DURUM ANALİZİ</h3>
+                
+                <div class="macro-insight">
+                    <h4>⚠️ Makro Gözlem - Su Kıtlığı ve CO2 İlişkisi:</h4>
+                    <p>Küresel emisyonların %80'inin 50-60 büyük şirketten geldiği gerçeği, su kıtlığı ile doğrudan bağlantılıdır. Bu şirketlerin çoğu su-yoğun sektörlerde (çelik, çimento, kimya) faaliyet göstermektedir.</p>
+                </div>
+
+                <h4>🔥 Kritik Su Kıtlığı Alanları:</h4>
+                <table class="crisis-table">
+                    <thead>
+                        <tr>
+                            <th>Bölge/Şehir</th>
+                            <th>Su Açığı (milyon m³/yıl)</th>
+                            <th>Nüfus Etkisi</th>
+                            <th>Risk Seviyesi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>İstanbul</td>
+                            <td>-594</td>
+                            <td>15.8 milyon</td>
+                            <td class="crisis-high">Kritik</td>
+                        </tr>
+                        <tr>
+                            <td>Konya</td>
+                            <td>-2.593</td>
+                            <td>2.3 milyon</td>
+                            <td class="crisis-high">Felaket</td>
+                        </tr>
+                        <tr>
+                            <td>Ankara</td>
+                            <td>-287</td>
+                            <td>5.8 milyon</td>
+                            <td class="crisis-high">Yüksek</td>
+                        </tr>
+                        <tr>
+                            <td>İzmir</td>
+                            <td>-156</td>
+                            <td>4.4 milyon</td>
+                            <td class="crisis-medium">Orta</td>
+                        </tr>
+                        <tr>
+                            <td>Bursa</td>
+                            <td>-89</td>
+                            <td>3.1 milyon</td>
+                            <td class="crisis-medium">Orta</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>📊 Su Kıtlığı Trend Analizi:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>2024 mevcut açık:</strong> 4.8 milyar m³/yıl</li>
+                    <li><strong>2030 projeksiyon:</strong> 8.2 milyar m³/yıl açık</li>
+                    <li><strong>2050 senaryosu:</strong> 15.6 milyar m³/yıl açık</li>
+                    <li><strong>Artış oranı:</strong> Yıllık %8.5 kötüleşme</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🏗️ BETON ENDÜSTRİSİ - SU HAPSİ SORUNU</h3>
+                
+                <div class="macro-insight">
+                    <h4>🔬 Makro Gözlem - Kimyasal Su Bağlanması:</h4>
+                    <p>Türkiye'nin 80 milyon ton/yıl çimento üretimi, yılda 108 milyon m³ su tüketimi anlamına geliyor. Bu suyun 140-180 L/m³'ü CSH (kalsiyum silikat hidrat) kristal yapısında <strong>kalıcı olarak bağlanıyor</strong> ve geri alınamıyor.</p>
+                </div>
+
+                <h4>⚗️ Kimyasal Su Bağlanma Prosesi:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>C3S + H2O → C-S-H jeli:</strong> Ana dayanım reaksiyonu</li>
+                    <li><strong>Hidratasyon süresi:</strong> 28 gün tam bağlanma</li>
+                    <li><strong>Su/çimento oranı:</strong> 0.47 (optimal dayanım)</li>
+                    <li><strong>Geri alınamaz su:</strong> %50-60 karışım suyu</li>
+                </ul>
+
+                <div class="trend-chart">
+                    <h5>📈 Türkiye Beton Üretimi Trendi:</h5>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>2024:</strong> 228 milyon m³ beton → 108 milyon m³ su</li>
+                        <li><strong>2030 projeksiyon:</strong> 285 milyon m³ beton → 135 milyon m³ su</li>
+                        <li><strong>2050 hedef:</strong> 350 milyon m³ beton → 166 milyon m³ su</li>
+                    </ul>
+                </div>
+
+                <h4>🌿 Alternatif Çözüm - Hempcrete:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Su tasarrufu:</strong> %83 (50 L/m³ vs 300 L/m³)</li>
+                    <li><strong>CO2 negatif:</strong> -180 kg CO2/m³ (vs +310 kg CO2/m³)</li>
+                    <li><strong>Potansiyel tasarruf:</strong> 58 milyon m³/yıl su</li>
+                    <li><strong>Engel:</strong> %47 daha pahalı üretim maliyeti</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🏭 ENDÜSTRİYEL SU YOĞUNLUĞU RAPORU</h3>
+                
+                <h4>⚡ Su-Enerji-CO2 Nexus:</h4>
+                <table class="crisis-table">
+                    <thead>
+                        <tr>
+                            <th>Sektör</th>
+                            <th>Su Tüketimi</th>
+                            <th>CO2/Ton Ürün</th>
+                            <th>Makro Etki</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Çelik</td>
+                            <td>15-25 m³/ton</td>
+                            <td>2.2 kg CO2/kg</td>
+                            <td class="crisis-high">843 milyon m³/yıl</td>
+                        </tr>
+                        <tr>
+                            <td>Çimento</td>
+                            <td>0.3 m³/ton</td>
+                            <td>0.89 kg CO2/kg</td>
+                            <td class="crisis-high">108 milyon m³/yıl</td>
+                        </tr>
+                        <tr>
+                            <td>Plastik</td>
+                            <td>0.18 m³/kg</td>
+                            <td>1.8 kg CO2/kg</td>
+                            <td class="crisis-medium">216 milyon m³/yıl</td>
+                        </tr>
+                        <tr>
+                            <td>Tekstil</td>
+                            <td>2.7 m³/kg</td>
+                            <td>1.8 kg CO2/kg</td>
+                            <td class="crisis-high">756 milyon m³/yıl</td>
+                        </tr>
+                        <tr>
+                            <td>Alüminyum</td>
+                            <td>155 m³/ton</td>
+                            <td>11.5 kg CO2/kg</td>
+                            <td class="crisis-medium">291 milyon m³/yıl</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="macro-insight">
+                    <h4>🎯 Kritik Makro Gözlem:</h4>
+                    <p>Türkiye'nin endüstriyel su tüketiminin %78'i sadece 5 sektörden geliyor. Bu sektörlerin aynı zamanda en yüksek CO2 emisyonuna sahip olması, <strong>su kıtlığı ile iklim değişikliğinin ayrılamaz bağlantısını</strong> kanıtlıyor.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🌾 TARIM SEKTÖRÜ - SU HEGEMONYASI</h3>
+                
+                <div class="macro-insight">
+                    <h4>📊 Makro Gözlem - Su Kullanımında Tarım Hegemonyası:</h4>
+                    <p>Türkiye toplam su tüketiminin %78'i tarım sektöründe kullanılıyor (31.2 milyar m³/yıl). Bu oran dünya ortalaması %70'in üzerinde ve su verimliliği oldukça düşük.</p>
+                </div>
+
+                <h4>🥩 Hayvancılık Su Yoğunluğu:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Sığır eti:</strong> 15.000 L/kg (yem üretimi dahil)</li>
+                    <li><strong>Süt:</strong> 1.000 L/L süt</li>
+                    <li><strong>Tavuk eti:</strong> 4.000 L/kg</li>
+                    <li><strong>Toplam hayvancılık:</strong> 2.1 milyar m³/yıl</li>
+                </ul>
+
+                <h4>🌱 Bitkisel Protein Alternatifi:</h4>
+                <div class="trend-chart">
+                    <h5>Protein Kaynağı Su Karşılaştırması:</h5>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Kenevir proteini:</strong> 500 L/kg (%97 tasarruf vs sığır)</li>
+                        <li><strong>Bezelye proteini:</strong> 1.500 L/kg (%90 tasarruf)</li>
+                        <li><strong>Potansiyel tasarruf:</strong> 3 milyar m³/yıl</li>
+                    </ul>
+                </div>
+
+                <h4>🚜 Sulama Verimliliği Sorunu:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Salma sulama:</strong> %75 alan, %35 verimlilik</li>
+                    <li><strong>Damla sulama:</strong> %5 alan, %90 verimlilik</li>
+                    <li><strong>Optimizasyon potansiyeli:</strong> %60 su tasarrufu</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🌊 DENİZ SUYU ARITMA STRATEJİSİ</h3>
+                
+                <h4>🚀 Türkiye Master Plan Hedefleri:</h4>
+                <div class="trend-chart">
+                    <h5>Deniz Suyu Arıtma Kapasite Gelişimi:</h5>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>2027:</strong> 109 milyon m³/yıl (5 tesis)</li>
+                        <li><strong>2035:</strong> 913 milyon m³/yıl (25 tesis)</li>
+                        <li><strong>2050:</strong> 2.0 milyar m³/yıl (60 tesis)</li>
+                    </ul>
+                </div>
+
+                <h4>💰 Maliyet-Fayda Analizi:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Toplam yatırım:</strong> 56 milyar $ (2050)</li>
+                    <li><strong>Üretim maliyeti:</strong> 0.75 $/m³ (hibrit sistem)</li>
+                    <li><strong>Geri ödeme süresi:</strong> 6.2 yıl</li>
+                    <li><strong>İstihdam yaratımı:</strong> 450.000 kişi</li>
+                </ul>
+
+                <h4>🌍 Çevresel Etki:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Brine yönetimi:</strong> %45-55 tuzlu atık</li>
+                    <li><strong>CO2 azaltımı:</strong> %60 (yenilenebilir enerji ile)</li>
+                    <li><strong>Enerji gereksinimi:</strong> 3.5-5.0 kWh/m³</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>💰 EKONOMİK ETKİ VE VERGİLENDİRME</h3>
+                
+                <div class="macro-insight">
+                    <h4>🎯 Makro Gözlem - CBAM Tehdidi:</h4>
+                    <p>AB'nin 2026'da başlatacağı Karbon Sınır Düzeltme Mekanizması (CBAM), Türkiye'nin çelik ve çimento ihracatına 8-12 milyar €/yıl ek maliyet getirecek. Bu, su-yoğun sektörlerin rekabet gücünü doğrudan etkileyecek.</p>
+                </div>
+
+                <h4>🚨 CBAM Risk Analizi:</h4>
+                <table class="crisis-table">
+                    <thead>
+                        <tr>
+                            <th>Sektör</th>
+                            <th>İhracat (milyar €)</th>
+                            <th>CBAM Maliyeti</th>
+                            <th>Risk Düzeyi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Çelik</td>
+                            <td>4.8</td>
+                            <td>+%18-25</td>
+                            <td class="crisis-high">Kritik</td>
+                        </tr>
+                        <tr>
+                            <td>Çimento</td>
+                            <td>0.8</td>
+                            <td>+%35-45</td>
+                            <td class="crisis-high">Felaket</td>
+                        </tr>
+                        <tr>
+                            <td>Alüminyum</td>
+                            <td>1.2</td>
+                            <td>+%22-30</td>
+                            <td class="crisis-high">Yüksek</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>💚 Türkiye ETS Potansiyeli:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Karbon fiyatı:</strong> 50-70 €/ton CO2</li>
+                    <li><strong>Yıllık vergi geliri:</strong> 26 milyar €/yıl</li>
+                    <li><strong>Su projelerine tahsis:</strong> %35 (9.1 milyar €)</li>
+                    <li><strong>Enflasyon etkisi:</strong> İlk yıl +%3.4</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🎯 STRATEJİK ÖNERİLER VE SONUÇ</h3>
+                
+                <div class="macro-insight">
+                    <h4>💡 Ana Çıkarım - Entegre Yaklaşım Gerekliliği:</h4>
+                    <p>Su kıtlığı, iklim değişikliği ve ekonomik rekabet gücü arasındaki güçlü bağlantı, <strong>sektörel değil sistematik bir dönüşüm</strong> gerektiriyor. 50 büyük şirketin emisyon dominansı, hedefli müdahale fırsatı sunuyor.</p>
+                </div>
+
+                <h4>🚀 Öncelikli Eylem Alanları:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Endüstriyel dönüşüm:</strong> Su-yoğun 5 sektörde kapalı döngü</li>
+                    <li><strong>Alternatif malzemeler:</strong> Hempcrete, CLT ahşap, geri dönüşüm</li>
+                    <li><strong>Deniz suyu arıtma:</strong> 2 milyar m³/yıl kapasiteye çıkış</li>
+                    <li><strong>Su transfer:</strong> 11 milyar m³/yıl ana güzergahlar</li>
+                    <li><strong>ETS vergilendirme:</strong> 26 milyar €/yıl yeşil yatırım fonu</li>
+                </ul>
+
+                <h4>📊 2050 Hedef Senaryosu:</h4>
+                <div class="trend-chart">
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Su tasarrufu:</strong> 15.8 milyar m³/yıl</li>
+                        <li><strong>CO2 azaltımı:</strong> 180 milyon ton/yıl</li>
+                        <li><strong>Ekonomik katma değer:</strong> 85 milyar $/yıl</li>
+                        <li><strong>İstihdam yaratımı:</strong> 2.8 milyon kişi</li>
+                        <li><strong>Su güvenliği:</strong> %95 özgüven seviyesi</li>
+                    </ul>
+                </div>
+
+                <h4>⚠️ Kritik Başarı Faktörleri:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Hızlı başlangıç:</strong> 2025-2027 pilot projeler</li>
+                    <li><strong>Finansman sağlama:</strong> ETS geliri + özel sektör</li>
+                    <li><strong>Teknoloji transferi:</strong> İsrail, Singapur, Avustralya</li>
+                    <li><strong>Düzenleyici çerçeve:</strong> Su verimliliği standartları</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="index.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #1e3c72; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">📊 Ana Dashboard</a>
+            <a href="su_transfer_detay_hesaplama.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #2a5298; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🚰 Su Transfer Detayları</a>
+            <a href="tum_sektorler.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #e74c3c; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🏢 Sektörel Analizler</a>
+        </div>
+    </div>
+</body>
+</html> 

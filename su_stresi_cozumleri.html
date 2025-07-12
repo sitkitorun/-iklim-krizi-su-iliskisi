@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Stresi ve Çözüm Yolları - Türkiye'nin Su Vizyonu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .intro-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .intro-section h2 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .intro-section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+        }
+
+        .solution-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .card-header h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .card-body p {
+            margin-bottom: 20px;
+        }
+
+        .card-footer {
+            padding: 25px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .details-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .details-btn:hover {
+            background: #218838;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item active">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>💧 Türkiye'nin Su Stresi ve Stratejik Çözüm Yolları</h1>
+            <p>Bugünün ve yarının su güvenliğini inşa etmek.</p>
+        </div>
+
+        <div class="intro-section">
+            <h2>KRİTİK EŞİK: SU KRİZİ KAPIMIZDA</h2>
+            <p>Türkiye, sanılanın aksine su zengini bir ülke değildir ve hızla "su fakiri" olma yolunda ilerlemektedir. İklim değişikliğinin getirdiği kuraklık, nüfus artışı ve sanayileşmenin yarattığı kontrolsüz su tüketimi, su kaynaklarımız üzerinde benzeri görülmemiş bir baskı oluşturmaktadır. Nüfusumuzun ve sanayimizin büyük kısmının toplandığı bölgeler, en ciddi su stresiyle karşı karşıyadır. Bu gidişatı tersine çevirmek, sadece bireysel tasarruflarla mümkün değildir. Artık, suyu kaynağından alıp ihtiyaç noktasına taşıyan ve deniz gibi sonsuz bir kaynağı kullanılabilir hale getiren büyük ölçekli, stratejik ve mühendislik odaklı projelere ihtiyacımız var.</p>
+        </div>
+
+        <div class="solutions-grid">
+            <!-- SU TRANSFER PROJESİ KARTI -->
+            <div class="solution-card">
+                <div class="card-header">
+                    <h3>🚰 Ulusal Su Transfer Projesi</h3>
+                    <p>Suyu Bol Havzalardan Kıt Bölgelere Taşıma Ağı</p>
+                </div>
+                <div class="card-body">
+                    <p>Türkiye'nin su potansiyelindeki coğrafi dengesizliği ortadan kaldırmayı hedefleyen bu proje, suyun bol olduğu Karadeniz ve Doğu havzalarından, su kıtlığı çeken İç Anadolu, Marmara ve Ege'deki sanayi, tarım ve nüfus merkezlerine aktarılmasını öngörür. Petrol boru hatlarına benzer bir stratejiyle, ulusal su güvenliğini ve tarımsal üretimin devamlılığını sağlamayı hedefler.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="su_transfer.html" class="details-btn">Proje Detaylarını İncele →</a>
+                </div>
+            </div>
+
+            <!-- DENİZ SUYU ARITMA KARTI -->
+            <div class="solution-card">
+                <div class="card-header">
+                    <h3>🌊 Deniz Suyu Arıtma Master Planı</h3>
+                    <p>Kıyı Kentleri İçin Sonsuz Su Kaynağı Yaratma</p>
+                </div>
+                <div class="card-body">
+                    <p>Nüfusun ve sanayinin %65'inin bulunduğu kıyı şeridimizdeki su açığını kapatmak için, deniz suyunu ileri teknoloji (Ters Osmoz) ile arıtarak içme ve kullanma suyuna dönüştürme projesidir. Özellikle kuraklık ve iklim krizine karşı en dirençli ve güvenilir su kaynağı olarak öne çıkmaktadır. Proje, Türkiye'nin su geleceği için stratejik bir sigorta niteliğindedir.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="deniz_suyu.html" class="details-btn">Master Planı İncele →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endüstri Etkisi Analizi - Türkiye Su Sorunu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover { transform: translateY(-5px); }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .impact-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .impact-table th,
+        .impact-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .impact-table th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .impact-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .high-impact { background: #e74c3c !important; color: white; }
+        .medium-impact { background: #f39c12 !important; color: white; }
+        .low-impact { background: #27ae60 !important; color: white; }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item active">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>🏭 ENDÜSTRİ ETKİSİ ANALİZİ</h1>
+            <p>Büyük Endüstrilerin Su Tüketimi ve İklim Etkisi</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <h3>🏗️ Beton Endüstrisi - Su Döngüsü Etkisi</h3>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">~41</span>
+                        <span>Milyon m³/yıl<br>Ortalama Su Tüketimi</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">250 L</span>
+                        <span>Net Bağlanan Su<br>(1 m³ Beton için)</span>
+                    </div>
+                </div>
+
+                <h4>🔬 Kalıcı Su Kaybı Mekanizması:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Bağlanan Su:</strong> Betonun sertleşmesini sağlayan CSH kristal yapısında kimyasal olarak hapsolur ve doğal döngüden kalıcı olarak çıkar.</li>
+                    <li><strong>Diğer Tüketimler:</strong> Karışım suyu haricinde, agrega yıkama, saha temizliği ve mikser yıkama gibi proseslerde de önemli miktarda su kullanılır.</li>
+                    <li><strong>Sonuç:</strong> Beton, suyu sadece "kullanan" değil, aynı zamanda "yok eden" tek büyük endüstriyel malzemedir.</li>
+                </ul>
+
+                <h4>📊 Türkiye Beton Endüstrisi Yıllık Ortalama Etkisi:</h4>
+                <table class="impact-table">
+                    <thead>
+                        <tr>
+                            <th>Parametre</th>
+                            <th>Yıllık Miktar</th>
+                            <th>Etki Seviyesi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hazır Beton Üretimi</td>
+                            <td>~105 Milyon m³</td>
+                            <td class="high-impact">Çok Yüksek</td>
+                        </tr>
+                        <tr>
+                            <td>Toplam Su Ayak İzi</td>
+                            <td>~25 Milyon m³</td>
+                            <td class="high-impact">Yüksek</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 Emisyonu (Çimento)</td>
+                            <td>~65 Milyon Ton</td>
+                            <td class="high-impact">Çok Yüksek</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="reference" style="font-size: 0.8em; color: #777; margin-top: 10px; display: block;">Kaynak: betonvecimento.com, TÜİK verileri, beton makale.md</span>
+            </div>
+
+            <div class="card">
+                <h3>⚡ Çelik Endüstrisi - Soğutma Su Yoğunluğu</h3>
+                
+                <h4>🔥 Yüksek Fırın Su Sistemi:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Sıcaklık düşürme:</strong> 1500°C → 200°C</li>
+                    <li><strong>Su gereksinimi:</strong> 15-25 m³/ton çelik</li>
+                    <li><strong>Geri dönüşüm oranı:</strong> %92 (kapalı döngü)</li>
+                    <li><strong>Kritik kontrol:</strong> Su buharı sızıntısı (patlama riski)</li>
+                </ul>
+
+                <div class="stats-container" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="stat-card">
+                        <span class="stat-number">33.7</span>
+                        <span>Milyon ton/yıl<br>Türkiye Üretimi</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">843</span>
+                        <span>Milyon m³/yıl<br>Maksimum Su</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🛍️ Plastik Endüstrisi - Petrokimya Bağlantısı</h3>
+                
+                <h4>🔄 Üretim Zinciri Su Kullanımı:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Ham petrol rafinerisi:</strong> 60 L/kg plastik</li>
+                    <li><strong>Petrokimya prosesi:</strong> 80 L/kg plastik</li>
+                    <li><strong>Polimerizasyon:</strong> 40 L/kg plastik</li>
+                    <li><strong>Toplam su ayak izi:</strong> 180 L/kg plastik</li>
+                </ul>
+
+                <h4>♻️ Geri Dönüşüm Etkisi:</h4>
+                <table class="impact-table">
+                    <thead>
+                        <tr>
+                            <th>Plastik Türü</th>
+                            <th>Virgin Su</th>
+                            <th>Geri Dönüşüm Su</th>
+                            <th>Tasarruf</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PET</td>
+                            <td>150 L/kg</td>
+                            <td>8 L/kg</td>
+                            <td class="low-impact">%95</td>
+                        </tr>
+                        <tr>
+                            <td>HDPE</td>
+                            <td>180 L/kg</td>
+                            <td>12 L/kg</td>
+                            <td class="low-impact">%93</td>
+                        </tr>
+                        <tr>
+                            <td>PP</td>
+                            <td>160 L/kg</td>
+                            <td>10 L/kg</td>
+                            <td class="low-impact">%94</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>👕 Tekstil Endüstrisi - Su Kirliliği Faktörü</h3>
+                
+                <h4>💧 Pamuk Üretimi Su Ayak İzi:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Tarımsal su:</strong> 2.500 L/kg pamuk (%90)</li>
+                    <li><strong>İşleme suyu:</strong> 200 L/kg kumaş (%10)</li>
+                    <li><strong>Boyama kirliliği:</strong> 8000 farklı kimyasal</li>
+                    <li><strong>Atık su kalitesi:</strong> pH 3-11, ağır metaller</li>
+                </ul>
+
+                <div class="stats-container" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="stat-card">
+                        <span class="stat-number">2.700</span>
+                        <span>Litre su/kg<br>Pamuklu Kumaş</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">7.000</span>
+                        <span>Litre su/adet<br>Kot Pantolon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🌾 Tarım-Gıda Endüstrisi - En Büyük Tüketici</h3>
+                
+                <h4>🥩 Hayvancılık Su Yoğunluğu:</h4>
+                <table class="impact-table">
+                    <thead>
+                        <tr>
+                            <th>Ürün</th>
+                            <th>Su Tüketimi</th>
+                            <th>CO2 Etkisi</th>
+                            <th>Metanet Faktörü</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sığır Eti</td>
+                            <td>15.000 L/kg</td>
+                            <td>60 kg CO2/kg</td>
+                            <td class="high-impact">×25 CO2</td>
+                        </tr>
+                        <tr>
+                            <td>Süt</td>
+                            <td>1.000 L/L</td>
+                            <td>3.2 kg CO2/L</td>
+                            <td class="medium-impact">×25 CO2</td>
+                        </tr>
+                        <tr>
+                            <td>Tavuk Eti</td>
+                            <td>4.000 L/kg</td>
+                            <td>6 kg CO2/kg</td>
+                            <td class="low-impact">×1 CO2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>🌱 Bitki Bazlı Alternatifler:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Kenevir protein:</strong> 500 L/kg (%97 su tasarrufu)</li>
+                    <li><strong>Bakliyat protein:</strong> 2.000 L/kg (%87 tasarruf)</li>
+                    <li><strong>Tahıl protein:</strong> 1.500 L/kg (%90 tasarruf)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>⛏️ Madencilik - Yeraltı Suyu Kirliliği</h3>
+                
+                <h4>🥇 Altın Madenciliği - En Yoğun Su Kullanımı:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Su tüketimi:</strong> 150.000 L/oz altın</li>
+                    <li><strong>Siyanür kullanımı:</strong> 0.5-2 kg/ton cevher</li>
+                    <li><strong>Yeraltı suyu kirliliği:</strong> Kalıcı hasar</li>
+                    <li><strong>Atık baraj riski:</strong> Çevresel felaket potansiyeli</li>
+                </ul>
+
+                <h4>🟠 Bakır Madenciliği:</h4>
+                <div class="stats-container" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="stat-card">
+                        <span class="stat-number">440</span>
+                        <span>m³ su/ton<br>Bakır</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">%85</span>
+                        <span>Flotasyon<br>Su Kullanımı</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="tum_sektorler.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #3498db; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">📄 Tüm Sektörler Detaylı Analiz</a>
+            <a href="alternatifler.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #27ae60; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🌱 Alternatif Çözümler</a>
+        </div>
+    </div>
+</body>
+</html> 

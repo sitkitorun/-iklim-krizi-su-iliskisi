@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesaplama Araçları - Türkiye Su Sorunu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        #results {
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .result-box {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #9b59b6;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        
+        .result-value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item active">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>📊 HESAPLAMA ARAÇLARI</h1>
+            <p>İnteraktif Su Tüketimi ve Tasarruf Hesaplamaları</p>
+        </div>
+
+        <div class="calculator-grid">
+            <!-- Hazır Beton Hesaplayıcı (Mevcut) -->
+            <div class="calculator-card">
+                <h3>🏗️ Hazır Beton Hesaplayıcı</h3>
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4 style="color: #1976d2; margin-bottom: 10px;">ℹ️ Hempcrete Nedir?</h4>
+                    <p>Kenevir saplarının kireç ile karıştırılmasıyla elde edilen doğal, karbon negatif yapı malzemesidir. Geleneksel betona göre %83 daha az su tüketir.</p>
+                </div>
+                <form id="concrete-form">
+                    <div class="form-group">
+                        <label for="cement">Çimento (kg/m³)</label>
+                        <input type="number" id="cement" value="350">
+                    </div>
+                    <div class="form-group">
+                        <label>Net Bağlanan Su (L/m³)</label>
+                        <input type="number" id="water" value="250" readonly style="background: #eee;">
+                    </div>
+                    <div class="form-group">
+                        <label>Toz Agrega (0-4 mm) (kg/m³)</label>
+                        <input type="number" id="agg_dust" value="680">
+                    </div>
+                    <div class="form-group">
+                        <label>İnce Agrega (4-15 mm) (kg/m³)</label>
+                        <input type="number" id="agg_fine" value="500">
+                    </div>
+                    <div class="form-group">
+                        <label>İri Agrega (15-30 mm) (kg/m³)</label>
+                        <input type="number" id="agg_coarse" value="700">
+                    </div>
+                     <div class="form-group">
+                        <label>Kimyasal Katkı (kg/m³)</label>
+                        <input type="number" id="admixture" value="5">
+                    </div>
+                     <div class="form-group">
+                        <label>Filler (Kalsit vb.) (kg/m³)</label>
+                        <input type="number" id="filler" value="50">
+                    </div>
+                    <button type="submit" class="calculate-btn">Hesapla</button>
+                </form>
+                <div id="results"></div>
+                <div style="margin-top: 20px;">
+                    <a href="https://www.tse.org.tr/IcerikDetay?ID=2468&ParentID=6874" target="_blank">TS EN 206+A2 Beton Standardı</a><br>
+                    <a href="https://www.tse.org.tr/IcerikDetay?ID=2180&ParentID=6785" target="_blank">TS EN 197-1 Çimento Standardı</a>
+                </div>
+            </div>
+            
+            <!-- Kişisel Karbon Ayak İzi (Mevcut) -->
+            <div class="calculator-card">
+                <h3>💨 Kişisel Karbon Ayak İzi</h3>
+                <form id="carbon-form">
+                    <div class="form-group"><label>Uçak Seyahati (km/yıl)</label><input type="number" id="flight" value="0"></div>
+                    <div class="form-group"><label>Araç Kullanımı (km/yıl)</label><input type="number" id="car" value="10000"></div>
+                    <div class="form-group"><label>Elektrik Tüketimi (kWh/ay)</label><input type="number" id="electricity" value="250"></div>
+                    <div class="form-group"><label>Doğalgaz Tüketimi (m³/ay)</label><input type="number" id="gas" value="100"></div>
+                    <button type="submit" class="calculate-btn">Ayak İzimi Hesapla</button>
+                </form>
+                <div id="carbon-results"></div>
+            </div>
+
+            <!-- Plastik Su Ayak İzi (YENİ FORMAT) -->
+            <div class="calculator-card">
+                <h3>🛍️ Plastik Su Ayak İzi Hesaplayıcı</h3>
+                <form id="plastic-form">
+                    <div class="form-group"><label for="plastic-weight">Plastik Ağırlığı (kg)</label><input type="number" id="plastic-weight" value="100"></div>
+                    <div class="form-group"><label for="plastic-type">Plastik Tipi</label><select id="plastic-type"><option value="150">PET</option><option value="180">HDPE</option></select></div>
+                    <div class="form-group"><label for="recycling-rate">Geri Dönüşüm Oranı (%)</label><input type="range" id="recycling-rate" min="0" max="100" value="25"></div>
+                    <button type="submit" class="calculate-btn">Hesapla</button>
+                </form>
+                <div id="plastic-results"></div>
+            </div>
+
+            <!-- Yağmur Suyu Potansiyeli (YENİ FORMAT) -->
+            <div class="calculator-card">
+                <h3>🌧️ Yağmur Suyu Potansiyeli</h3>
+                <form id="rainwater-form">
+                    <div class="form-group"><label for="roof-area">Çatı Alanı (m²)</label><input type="number" id="roof-area" value="100"></div>
+                    <div class="form-group"><label for="annual-rainfall">Yıllık Yağış (mm)</label><input type="number" id="annual-rainfall" value="650"></div>
+                    <button type="submit" class="calculate-btn">Hesapla</button>
+                </form>
+                <div id="rainwater-results"></div>
+            </div>
+
+            <!-- Protein Kaynağı (YENİ FORMAT) -->
+            <div class="calculator-card">
+                <h3>🥩 Protein Kaynağı Su Karşılaştırması</h3>
+                <form id="protein-form">
+                    <div class="form-group"><label>Mevcut Protein</label><select id="current-protein"><option value="15000">Sığır Eti</option><option value="4000">Tavuk Eti</option></select></div>
+                    <div class="form-group"><label>Alternatif Protein</label><select id="alternative-protein"><option value="500">Kenevir</option><option value="1500">Bezelye</option></select></div>
+                    <div class="form-group"><label>Protein Miktarı (kg/yıl)</label><input type="number" id="protein-amount" value="50"></div>
+                    <button type="submit" class="calculate-btn">Karşılaştır</button>
+                </form>
+                <div id="protein-results"></div>
+            </div>
+
+            <!-- Kişisel Su Ayak İzi (YENİ) -->
+            <div class="calculator-card">
+                <h3>💧 Kişisel Su Ayak İzi Hesaplayıcı</h3>
+                <form id="water-footprint-form">
+                    <div class="form-group"><label>Duş Süresi (dakika/gün)</label><input type="number" id="shower-time" value="10"></div>
+                    <div class="form-group"><label>Diş Fırçalama (kez/gün, musluk açık)</label><input type="number" id="brushing" value="2"></div>
+                    <div class="form-group"><label>Çamaşır Makinesi (haftada kaç kez)</label><input type="number" id="laundry" value="3"></div>
+                    <div class="form-group"><label>Bulaşık Makinesi (haftada kaç kez)</label><input type="number" id="dishes" value="4"></div>
+                    <button type="submit" class="calculate-btn">Su Ayak İzimi Hesapla</button>
+                </form>
+                <div id="water-footprint-results"></div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="06_Veri_ve_Hesaplamalar/beton_su_hesaplayici.py" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #9b59b6; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🐍 Python Kod</a>
+            <a href="06_Veri_ve_Hesaplamalar/su_tasarrufu_hesaplayici.py" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #3498db; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">⚙️ Su Tasarruf Aracı</a>
+        </div>
+    </div>
+
+    <script>
+        // --- FORM EVENT LISTENERS ---
+        document.getElementById('concrete-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateConcrete();
+        });
+        document.getElementById('carbon-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateCarbonFootprint();
+        });
+        document.getElementById('plastic-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculatePlastic();
+        });
+        document.getElementById('rainwater-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateRainwater();
+        });
+        document.getElementById('protein-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateProtein();
+        });
+        document.getElementById('water-footprint-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateWaterFootprint();
+        });
+
+        // --- CALCULATION FUNCTIONS ---
+
+        function calculateConcrete() {
+            const cement = parseFloat(document.getElementById('cement').value) || 0;
+            const water = parseFloat(document.getElementById('water').value) || 0;
+            const agg_dust = parseFloat(document.getElementById('agg_dust').value) || 0;
+            const agg_fine = parseFloat(document.getElementById('agg_fine').value) || 0;
+            const agg_coarse = parseFloat(document.getElementById('agg_coarse').value) || 0;
+            const admixture = parseFloat(document.getElementById('admixture').value) || 0;
+            const filler = parseFloat(document.getElementById('filler').value) || 0;
+
+            const totalMass = cement + water + agg_dust + agg_fine + agg_coarse + admixture + filler;
+            const waterCementRatio = (water / cement).toFixed(2);
+            
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-item"><span>Toplam Kütle (1 m³):</span> <span class="result-value">${totalMass.toFixed(0)} kg</span></div>
+                <div class="result-item"><span>Su/Çimento Oranı:</span> <span class="result-value">${waterCementRatio}</span></div>
+                <div class="result-item"><span>Net Bağlanan Su:</span> <span class="result-value">${water.toFixed(0)} Litre</span></div>
+            `;
+        }
+        
+        function calculateCarbonFootprint() {
+            const flight = parseFloat(document.getElementById('flight').value) || 0;
+            const car = parseFloat(document.getElementById('car').value) || 0;
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const gas = parseFloat(document.getElementById('gas').value) || 0;
+
+            const flightCO2 = flight * 0.15; // kg CO2
+            const carCO2 = car * 0.12; // kg CO2
+            const electricityCO2 = electricity * 12 * 0.45; // kg CO2
+            const gasCO2 = gas * 12 * 2.0; // kg CO2
+            const totalCO2 = (flightCO2 + carCO2 + electricityCO2 + gasCO2) / 1000; // ton CO2
+
+            const resultsDiv = document.getElementById('carbon-results');
+            resultsDiv.innerHTML = `
+                <div class="result-item"><span>Yıllık Uçuş:</span> <span class="result-value">${flightCO2.toFixed(0)} kg CO2</span></div>
+                <div class="result-item"><span>Yıllık Araç:</span> <span class="result-value">${carCO2.toFixed(0)} kg CO2</span></div>
+                <div class="result-item"><span>Yıllık Elektrik:</span> <span class="result-value">${electricityCO2.toFixed(0)} kg CO2</span></div>
+                <div class="result-item"><span>Yıllık Doğalgaz:</span> <span class="result-value">${gasCO2.toFixed(0)} kg CO2</span></div>
+                <hr>
+                <div class="result-item"><strong>Toplam Yıllık:</strong> <strong class="result-value">${totalCO2.toFixed(2)} ton CO2</strong></div>
+            `;
+        }
+
+        function calculatePlastic() {
+            const weight = parseFloat(document.getElementById('plastic-weight').value) || 0;
+            const waterPerKg = parseFloat(document.getElementById('plastic-type').value);
+            const recyclingRate = parseFloat(document.getElementById('recycling-rate').value) / 100;
+            
+            const virginWater = weight * waterPerKg;
+            const recycledWater = weight * waterPerKg * recyclingRate * 0.05;
+            const totalWater = virginWater * (1 - recyclingRate) + recycledWater;
+            const saving = virginWater - totalWater;
+
+            const resultsDiv = document.getElementById('plastic-results');
+            resultsDiv.innerHTML = `
+                <div class="result-item"><span>Virgin Su Ayak İzi:</span> <span class="result-value">${virginWater.toFixed(0)} L</span></div>
+                <div class="result-item"><span>Mevcut Su Tüketimi:</span> <span class="result-value">${totalWater.toFixed(0)} L</span></div>
+                <div class="result-item"><strong>Toplam Su Tasarrufu:</strong> <strong class="result-value">${saving.toFixed(0)} L (${((saving/virginWater)*100 || 0).toFixed(0)}%)</strong></div>
+            `;
+        }
+
+        function calculateRainwater() {
+            const area = parseFloat(document.getElementById('roof-area').value) || 0;
+            const rainfall = parseFloat(document.getElementById('annual-rainfall').value) || 0;
+            
+            const annualCollection = (area * rainfall * 0.8) / 1000; // m³ (%80 verim)
+            const dailyAverage = (annualCollection * 1000) / 365;
+            const economicValue = annualCollection * 8.5;
+
+            const resultsDiv = document.getElementById('rainwater-results');
+            resultsDiv.innerHTML = `
+                <div class="result-item"><span>Yıllık Toplama Potansiyeli:</span> <span class="result-value">${annualCollection.toFixed(1)} m³</span></div>
+                <div class="result-item"><span>Günlük Ortalama:</span> <span class="result-value">${dailyAverage.toFixed(0)} L</span></div>
+                <div class="result-item"><span>Ekonomik Değer:</span> <span class="result-value">${economicValue.toFixed(0)} TL/yıl</span></div>
+            `;
+        }
+
+        function calculateProtein() {
+            const amount = parseFloat(document.getElementById('protein-amount').value) || 0;
+            const currentWaterVal = parseFloat(document.getElementById('current-protein').value);
+            const altWaterVal = parseFloat(document.getElementById('alternative-protein').value);
+
+            const currentWater = amount * currentWaterVal;
+            const altWater = amount * altWaterVal;
+            const saving = currentWater - altWater;
+            
+            const resultsDiv = document.getElementById('protein-results');
+            resultsDiv.innerHTML = `
+                <div class="result-item"><span>Mevcut Tüketim:</span> <span class="result-value">${(currentWater/1000).toFixed(1)} m³</span></div>
+                <div class="result-item"><span>Alternatif ile Tüketim:</span> <span class="result-value">${(altWater/1000).toFixed(1)} m³</span></div>
+                <div class="result-item"><strong>Toplam Su Tasarrufu:</strong> <strong class="result-value">${(saving/1000).toFixed(1)} m³ (${((saving/currentWater)*100 || 0).toFixed(0)}%)</strong></div>
+            `;
+        }
+        
+        function calculateWaterFootprint() {
+            const shower = (parseFloat(document.getElementById('shower-time').value) || 0) * 10; // 10 L/dk
+            const brushing = (parseFloat(document.getElementById('brushing').value) || 0) * 5; // 5 L/kez
+            const laundry = (parseFloat(document.getElementById('laundry').value) || 0) * 60 / 7; // 60 L/yıkama, günlüğe çevir
+            const dishes = (parseFloat(document.getElementById('dishes').value) || 0) * 15 / 7; // 15 L/yıkama, günlüğe çevir
+            const totalDaily = shower + brushing + laundry + dishes;
+
+            const resultsDiv = document.getElementById('water-footprint-results');
+            resultsDiv.innerHTML = `
+                <div class="result-item"><span>Duş:</span> <span class="result-value">${shower.toFixed(0)} L/gün</span></div>
+                <div class="result-item"><span>Diş Fırçalama:</span> <span class="result-value">${brushing.toFixed(0)} L/gün</span></div>
+                <div class="result-item"><span>Çamaşır:</span> <span class="result-value">${laundry.toFixed(0)} L/gün</span></div>
+                <div class="result-item"><span>Bulaşık:</span> <span class="result-value">${dishes.toFixed(0)} L/gün</span></div>
+                <hr>
+                <div class="result-item"><strong>Toplam Günlük:</strong> <strong class="result-value">${totalDaily.toFixed(0)} L/gün</strong></div>
+                <div class="result-item"><strong>Toplam Yıllık:</strong> <strong class="result-value">${(totalDaily * 365 / 1000).toFixed(1)} m³/yıl</strong></div>
+            `;
+        }
+    </script>
+</body>
+</html> 

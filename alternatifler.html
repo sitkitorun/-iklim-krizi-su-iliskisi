@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternatif Çözümler - Türkiye Su Sorunu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .alternatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover { transform: translateY(-5px); }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #27ae60;
+            padding-bottom: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .comparison-table th {
+            background: #27ae60;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .advantage { background: #d5f4e6 !important; }
+        .disadvantage { background: #fadbd8 !important; }
+        .neutral { background: #fef9e7 !important; }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .hemp-highlight {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item active">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>🌱 ALTERNATİF ÇÖZÜMLER</h1>
+            <p>Sürdürülebilir Malzeme ve Teknoloji Alternatifleri</p>
+        </div>
+
+        <div class="alternatives-grid">
+            <div class="card">
+                <h3>🌿 HEMPCRETE vs BETON</h3>
+                
+                <div class="hemp-highlight">
+                    <h4>Kenevir Beton (Hempcrete) Avantajları</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>%83 daha az su tüketimi</li>
+                        <li>CO2 negatif malzeme (-1.8 kg CO2/kg)</li>
+                        <li>Mükemmel termal yalıtım</li>
+                        <li>Nem düzenleyici özellik</li>
+                    </ul>
+                </div>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Özellik</th>
+                            <th>Beton</th>
+                            <th>Hempcrete</th>
+                            <th>Tasarruf</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Su Tüketimi</td>
+                            <td>300 L/m³</td>
+                            <td>50 L/m³</td>
+                            <td class="advantage">%83</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 Emisyonu</td>
+                            <td>+310 kg/m³</td>
+                            <td>-180 kg/m³</td>
+                            <td class="advantage">%158</td>
+                        </tr>
+                        <tr>
+                            <td>Maliyet</td>
+                            <td>150 TL/m³</td>
+                            <td>220 TL/m³</td>
+                            <td class="disadvantage">+%47</td>
+                        </tr>
+                        <tr>
+                            <td>Dayanım</td>
+                            <td>25-35 MPa</td>
+                            <td>1-3 MPa</td>
+                            <td class="disadvantage">Düşük</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">18</span>
+                        <span>Milyon m³/yıl<br>Potansiyel Üretim</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">4.9</span>
+                        <span>Milyon m³/yıl<br>Su Tasarrufu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🌲 AHŞAP vs ÇELİK (CLT Teknolojisi)</h3>
+                
+                <h4>🏗️ Cross Laminated Timber (CLT):</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>7 kata kadar yapı:</strong> Çelik alternatifi</li>
+                    <li><strong>%90 daha az CO2:</strong> -1.8 kg CO2/kg ahşap</li>
+                    <li><strong>%95 daha az su:</strong> 1.2 L/kg ahşap</li>
+                    <li><strong>Karbon depolama:</strong> +50 yıl CO2 tutma</li>
+                </ul>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Parametre</th>
+                            <th>Çelik</th>
+                            <th>CLT Ahşap</th>
+                            <th>Fark</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Su Tüketimi</td>
+                            <td>20 m³/ton</td>
+                            <td>1.2 L/kg</td>
+                            <td class="advantage">%94 tasarruf</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 Etkisi</td>
+                            <td>+2.2 kg/kg</td>
+                            <td>-1.8 kg/kg</td>
+                            <td class="advantage">%182 azaltım</td>
+                        </tr>
+                        <tr>
+                            <td>İnşaat Hızı</td>
+                            <td>Standart</td>
+                            <td>%30 hızlı</td>
+                            <td class="advantage">Hızlı</td>
+                        </tr>
+                        <tr>
+                            <td>Yangın Dayanımı</td>
+                            <td>Yüksek</td>
+                            <td>Orta-İyi</td>
+                            <td class="neutral">Kabul edilebilir</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>♻️ GERİ DÖNÜŞTÜRÜLMÜŞ PLASTİK vs VİRGİN</h3>
+                
+                <h4>🔄 Plastik Geri Dönüşüm Potansiyeli:</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Plastik Türü</th>
+                            <th>Virgin Su</th>
+                            <th>Geri Dönüşüm</th>
+                            <th>Tasarruf</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PET (Şişe)</td>
+                            <td>150 L/kg</td>
+                            <td>8 L/kg</td>
+                            <td class="advantage">%95</td>
+                        </tr>
+                        <tr>
+                            <td>HDPE (Bidonu)</td>
+                            <td>180 L/kg</td>
+                            <td>12 L/kg</td>
+                            <td class="advantage">%93</td>
+                        </tr>
+                        <tr>
+                            <td>PP (Kap)</td>
+                            <td>160 L/kg</td>
+                            <td>10 L/kg</td>
+                            <td class="advantage">%94</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">1.2</span>
+                        <span>Milyon ton/yıl<br>Geri Dönüşüm Kapasitesi</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">200</span>
+                        <span>Milyon m³/yıl<br>Su Tasarrufu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🌾 BİTKİSEL PROTEİN vs HAYVANSAL</h3>
+                
+                <h4>🥩 Protein Kaynağı Karşılaştırması:</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Protein Kaynağı</th>
+                            <th>Su Tüketimi</th>
+                            <th>CO2 Emisyonu</th>
+                            <th>Protein Oranı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sığır Eti</td>
+                            <td>15.000 L/kg</td>
+                            <td>60 kg CO2/kg</td>
+                            <td>25%</td>
+                        </tr>
+                        <tr>
+                            <td>Tavuk Eti</td>
+                            <td>4.000 L/kg</td>
+                            <td>6 kg CO2/kg</td>
+                            <td>31%</td>
+                        </tr>
+                        <tr>
+                            <td class="advantage">Kenevir Tohumu</td>
+                            <td class="advantage">500 L/kg</td>
+                            <td class="advantage">0.5 kg CO2/kg</td>
+                            <td class="advantage">35%</td>
+                        </tr>
+                        <tr>
+                            <td class="advantage">Bezelye Proteini</td>
+                            <td class="advantage">1.500 L/kg</td>
+                            <td class="advantage">0.8 kg CO2/kg</td>
+                            <td class="advantage">80%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>🌱 Türkiye Potansiyeli:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Kenevir ekim alanı:</strong> 500.000 hektar potansiyel</li>
+                    <li><strong>Yıllık protein üretimi:</strong> 200.000 ton</li>
+                    <li><strong>Su tasarrufu:</strong> 3 milyar m³/yıl</li>
+                    <li><strong>CO2 azaltımı:</strong> 11.8 milyon ton/yıl</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🌊 YAĞMUR SUYU TOPLAMA SİSTEMİ</h3>
+                
+                <h4>💧 Şehirsel Yağmur Suyu Potansiyeli:</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Şehir</th>
+                            <th>Yıllık Yağış</th>
+                            <th>Çatı Alanı</th>
+                            <th>Toplama Potansiyeli</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>İstanbul</td>
+                            <td>816 mm</td>
+                            <td>400 km²</td>
+                            <td class="advantage">280 milyon m³</td>
+                        </tr>
+                        <tr>
+                            <td>Ankara</td>
+                            <td>415 mm</td>
+                            <td>180 km²</td>
+                            <td class="advantage">65 milyon m³</td>
+                        </tr>
+                        <tr>
+                            <td>Antalya</td>
+                            <td>1002 mm</td>
+                            <td>80 km²</td>
+                            <td class="advantage">68 milyon m³</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">650</span>
+                        <span>mm/yıl<br>Türkiye Ortalaması</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2.1</span>
+                        <span>Milyar m³/yıl<br>Toplam Potansiyel</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚡ YENİLENEBİLİR ENERJİ ENTEGRASYONU</h3>
+                
+                <h4>🌞 Su-Enerji Nexus Çözümleri:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Güneş destekli deniz suyu arıtma:</strong> %60 enerji tasarrufu</li>
+                    <li><strong>Rüzgar pompa sistemleri:</strong> Su transferinde %45 maliyet azaltımı</li>
+                    <li><strong>Hibrit sistemler:</strong> Güneş + rüzgar + depolama</li>
+                    <li><strong>Akıllı şebeke:</strong> Yük dengeleme ve verimlilik</li>
+                </ul>
+
+                <h4>📊 Enerji-Su Tasarrufu Potansiyeli:</h4>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">%75</span>
+                        <span>Yenilenebilir<br>Enerji Hedefi</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">45%</span>
+                        <span>CO2 Azaltımı<br>Potansiyeli</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2.8</span>
+                        <span>Milyar USD<br>Yıllık Tasarruf</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="03_Alternatif_Cozumler/dogal_malzemeler_matrisi.md" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #27ae60; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">📄 Doğal Malzemeler Matrisi</a>
+            <a href="06_Veri_ve_Hesaplamalar/beton_su_hesaplayici.py" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #3498db; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🔧 Hesaplama Araçları</a>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tüm Sektörler - Proses Analizi ve Sistem Sınırları</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f4f7f6; }
+        .header { background: linear-gradient(135deg, #4a5568, #2d3748); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        .page-title { text-align: center; color: #2d3748; margin-bottom: 30px; }
+        .page-title h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .sector-selection { background: white; border-radius: 15px; padding: 20px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .sector-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .sector-btn { padding: 15px; background: #718096; color: white; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-weight: bold; }
+        .sector-btn:hover { background: #4a5568; transform: translateY(-2px); }
+        .sector-btn.active { background: #e53e3e; }
+        .process-analysis { display: none; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .process-analysis.active { display: grid; }
+        .card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 25px rgba(0,0,0,0.07); }
+        .card h3 { color: #2d3748; margin-bottom: 15px; border-bottom: 3px solid #cbd5e0; padding-bottom: 10px; }
+        .system-boundary { border: 2px dashed #a0aec0; padding: 20px; margin: 20px 0; border-radius: 10px; background: #f7fafc; }
+        .balance-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .balance-table th, .balance-table td { border: 1px solid #e2e8f0; padding: 10px; text-align: center; }
+        .balance-table th { background: #edf2f7; color: #2d3748; }
+        .input { background: #f0fff4; }
+        .output { background: #fffaf0; }
+        .waste { background: #fff5f5; }
+        ul { list-style-position: inside; padding-left: 10px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item active">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>🏢 Tüm Sektörler: Su ve Karbon Ayak İzleri</h1>
+            <p>Sistem Sınırları, Girdi-Çıktı Analizi ve Kütle-Enerji Balansları</p>
+        </div>
+
+        <div class="sector-selection">
+            <div class="sector-buttons">
+                <button class="sector-btn" onclick="showSector('concrete')">🏗️ Hazır Beton</button>
+                <button class="sector-btn" onclick="showSector('cement')">🏭 Çimento</button>
+                <button class="sector-btn" onclick="showSector('steel')">🔥 Çelik</button>
+                <button class="sector-btn" onclick="showSector('plastic')">🛍️ Plastik</button>
+                <button class="sector-btn" onclick="showSector('textile')">👕 Tekstil</button>
+                <button class="sector-btn" onclick="showSector('aluminum')">⚡ Alüminyum</button>
+                <button class="sector-btn" onclick="showSector('food')">🍔 Gıda</button>
+                <button class="sector-btn" onclick="showSector('agriculture')">🌾 Tarım</button>
+                <button class="sector-btn" onclick="showSector('mining')">⛏️ Madencilik</button>
+            </div>
+        </div>
+
+        <div id="concrete" class="process-analysis">
+            <div class="card">
+                <h3>🏗️ HAZIR BETON SEKTÖRÜ</h3>
+                <div class="system-boundary">
+                    <p><strong>Odak:</strong> Hazır Betonun Su Tüketimi<br><strong>Referanslar:</strong> GCCA, PCA, betonvecimento.com</p>
+                </div>
+                <p>Beton, sudan sonra dünyada en çok kullanılan maddedir. Diğer proseslerden farklı olarak, betondaki su doğal döngüden kalıcı olarak çıkar ve CSH (Kalsiyum Silikat Hidrat) jelleri içinde kristalleşerek hapsolur.</p>
+            </div>
+            <div class="card">
+                <h3>💧 KRİTİK VERİLER (1 m³ Hazır Beton)</h3>
+                <table class="balance-table">
+                    <thead><tr><th>Parametre</th><th>Değer</th></tr></thead>
+                    <tbody>
+                        <tr><td>Net Bağlanan Su</td><td>~250 Litre</td></tr>
+                        <tr><td>Toplam Su Ayak İzi</td><td>~650 Litre</td></tr>
+                        <tr><td>CO2 Emisyonu</td><td>~250 kg</td></tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">
+                    Beton içerisine hapsedilen su miktarı (Son 5 yıl ortalaması)<br>
+                    260 milyon m3/yıl beton üretimi için 65 milyon m3/yıl su <strong style="font-size: 1.1em; color: #c0392b;">yok olmaktadır.</strong>
+                </p>
+            </div>
+            <div class="card">
+                <h3>💧 SU KAYBI MEKANİZMASI</h3>
+                <ul>
+                    <li><strong>Kimyasal Bağlı Su:</strong> CSH kristal yapısında (geri alınamaz).</li>
+                    <li><strong>Toplam Ayak İzi:</strong> Karışım suyu, agrega yıkama, saha temizliği ve mikser yıkamayı içerir.</li>
+                </ul>
+            </div>
+            <div class="card" style="grid-column: 1 / -1;">
+                <h3>Beton Yakın Plan: Sistemik Bir Sorgulama</h3>
+                <p><strong>Giriş:</strong> Dayanıklılığı, yangına karşı direnci, ekonomik üretimi ve yerinde imalat gibi özellikleri nedeniyle modern dünyanın vazgeçilmezi olarak sunulan betona, sistemik bir perspektiften bakarak uzun vadeli ve çoğu zaman göz ardı edilen etkilerini sorgulamak gerekmektedir. Bu platform, "Dünyaya en çok zarar veren malzemeler nelerdir?" sorusuna verilecek yanıtları, bilimsel veriler ve bütüncül bir bakış açısıyla tartışmaya açmayı hedeflemektedir. Konuyla ilgili olarak The Guardian'da yayımlanan <a href="https://www.theguardian.com/cities/2019/feb/25/concrete-the-most-destructive-material-on-earth#:~:text=In%20the%20time%20it,spill%20out%20into%20Hyde%20Park" target="_blank" style="color: #1a0dab; text-decoration: none;">"Concrete: the most destructive material on earth"</a> başlıklı makale, konunun küresel boyutunu anlamak için önemli bir başlangıç noktasıdır.</p>
+                <p>Betonun yüksek dayanım ihtiyacının temelinde, yine kendisi gibi ağır olan üst katlardaki betonarme yapıları taşıma zorunluluğu yatar. Bu durum, betonun kendi içinde bir kısır döngü yaratarak sürekli bir kütle artışını ve su tüketimini tetiklediği, her 50 yılda bir yenilenme ihtiyacı duyan bir çözümsüzlük sarmalı olduğu gerçeğini ortaya koyar. Bu sistem, beton, demir-çelik ve petrol türevlerini satabilmek adına, asbest ve kenevir gibi birçok doğal ve sürdürülebilir alternatifi "canavar" olarak göstererek yasaklamıştır.</p>
+                
+                <h4>1. Kalıcı Su Kaybı: Betonun Geri Döndürülemez Etkisi</h4>
+                <p>Maddenin korunumu yasası gereği, var olan hiçbir şey yok olmaz. Bu, betondaki su için de geçerlidir; ancak tek bir kritik farkla: Su, artık doğanın kullanımına kapalıdır. Her bir metreküp betonun içinde yaklaşık 250 litre su, hidratasyon reaksiyonuyla CSH (Kalsiyum Silikat Hidrat) kristallerine dönüşerek kimyasal olarak hapsolur. Bu su, artık doğal döngünün bir parçası değildir ve kalıcı olarak sistemden çıkar.</p>
+                <p>Diğer tüm su tüketim mekanizmaları (tarım, endüstriyel prosesler) suyu kirletse de döngü içinde tutar ve arıtma teknolojileriyle geri kazanımını mümkün kılar. Örneğin, tarımda kullanılan su, besin zinciri ve atık su arıtma sistemleri aracılığıyla doğaya geri döner. Endüstriyel suların döngüsü daha yavaş olsa da, ileri arıtma teknolojileri ile geri kazanımı mümkündür. Ancak başka hiçbir mekanizma, hazır beton gibi suyu kalıcı olarak "yok etmez".</p>
+                <p><strong>Rakamlarla Türkiye'nin Kaybı:</strong> Son 20 yılda Türkiye'de üretilen 3.3 milyar m³ beton, yaklaşık **822 milyon m³ suyu** (10 Atatürk Barajı hacmine eşdeğer) kalıcı olarak sistemden çıkarmıştır. Bu, Türkiye yüzölçümünün %10.5'inin 1 metre derinliğinde bir su kütlesiyle kaplanmasına denktir. Detaylı veriler için <a href="https://www.betonvecimento.com/beton-2/su-ayak-izi-ve-hazir-beton" target="_blank" style="color: #1a0dab; text-decoration: none;">Su Ayak İzi ve Hazır Beton</a> ile <a href="https://data.tuik.gov.tr/Bulten/Index?p=Yillik-Sanayi-Urun-(PRODCOM)-Istatistikleri-2024-54189" target="_blank" style="color: #1a0dab; text-decoration: none;">TÜİK Kurumsal</a> verileri incelenebilir.</p>
+                
+                <h4>2. İklim ve Jeoloji Üzerindeki Gizli Etkiler</h4>
+                <p>Doğal denge, bu büyük su kaybını telafi etmek için denizlerden ve buzullardan daha fazla suyu buharlaştırma ve eritme yoluna gider. Gezegenin doğal klima etkisi olan su döngüsünün bu şekilde sekteye uğraması, küresel ortalama sıcaklıkların artmasına ve aşırı hava olaylarının (bir bölgede kuraklık, diğerinde seller) sıklaşmasına neden olur. Bu olguyu doğrudan betona bağlamak, iklim değişikliğinin altında yatan temel mekanizmalardan birini anlamamızı sağlar. Dahası, bu kalıcı su kaybı yer altı su seviyelerindeki düşüşe, obruk oluşumlarına ve fay hatlarındaki mevcut gerilimin artmasına yol açarak jeolojik riskleri de beraberinde getirir.</p>
+
+                <h4>3. Kütle Yer Değişimi ve Tektonik Risk</h4>
+                <p>Beton üretiminin bir diğer kritik boyutu ise devasa "kütle yer değişimi"dir. Son 20 yılda Türkiye'de dağlardan ve nehir yataklarından sökülerek şehir merkezlerine yığılan yaklaşık **9 milyar tonluk** beton kütlesi, yer kabuğu üzerinde muazzam bir jeolojik baskı oluşturmaktadır. Bu kütle transferi, hassas tektonik dengeler üzerine kurulmuş fay hatlarında ek stres birikimine neden olabilir ve yerel sismik aktiviteyi tetikleme potansiyeli taşıyabilir. Bu konu, ileri düzeyde jeofizik ve jeolojik araştırmalar gerektiren, acil olarak incelenmesi gereken bir alandır.</p>
+            </div>
+        </div>
+
+        <div id="cement" class="process-analysis">
+            <div class="card">
+                <h3>🏭 ÇİMENTO ÜRETİMİ</h3>
+                <div class="system-boundary">
+                    <p><strong>Başlangıç:</strong> Kireç taşı/Kil Ocağı<br><strong>Bitiş:</strong> Torbalanmış Çimento (Portland Çimentosu Tip I)<br><strong>Referanslar:</strong> Cement Sustainability Initiative (CSI), Cembureau</p>
+                </div>
+                <p>Çimento, betonun bağlayıcı ana bileşenidir. Üretimi, kalsinasyon adı verilen ve yoğun CO2 salımına neden olan yüksek sıcaklıklı bir kimyasal reaksiyonu içerir.</p>
+            </div>
+            <div class="card" style="grid-column: 1 / -1;">
+                <h3>⚖️ KÜTLE BALANSI VE EMİSYONLAR (1 Ton Çimento için)</h3>
+                <table class="balance-table">
+                    <thead>
+                        <tr>
+                            <th>Ürün</th>
+                            <th>Yarı Mamül</th>
+                            <th>Ham Karışım</th>
+                            <th colspan="3">Hammadde</th>
+                        </tr>
+                        <tr>
+                            <th></th><th>Klinker</th><th>Farin</th><th>Kireçtaşı</th><th>Kil/Marn</th><th>Korrektör (Demir Cevheri vb.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 ton Çimento</td>
+                            <td>~ 0,8 - 0,9 ton</td>
+                            <td>~ 1,3 ton</td>
+                            <td>~ 0,9 ton</td>
+                            <td>~ 0,4 ton</td>
+                            <td>~ 0,01 ton</td>
+                        </tr>
+                        <tr>
+                            <td>100 kWh Elektrik Enerjisi</td>
+                            <td colspan="2">
+                                ~ 540 kg CO2 Kalsinasyon<br>
+                                ~ 360 kg CO2 Yakıt<br>
+                                <strong>~ 900 kg CO2/ton.ck</strong>
+                            </td>
+                            <td colspan="3">~0,170 ton H₂O/ton.cc emisyonu</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card">
+                <h3>💧 SU & KARBON AYAK İZİ</h3>
+                <h4>Karbon Emisyonu Dağılımı:</h4>
+                <ul>
+                    <li><strong>Kalsinasyon (%60):</strong> Kireç taşının (CaCO₃) ısıtılarak kalsiyum oksite (CaO) dönüştürülmesi sırasında doğal olarak açığa çıkan CO₂.</li>
+                    <li><strong>Yakıt Kullanımı (%40):</strong> Döner fırınları 1450°C'ye kadar ısıtmak için kullanılan fosil yakıtların yanması sonucu oluşan CO₂.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="steel" class="process-analysis">
+            <div class="card"><h3>🔥 DEMİR-ÇELİK ENDÜSTRİSİ</h3><div class="system-boundary"><p><strong>Rota:</strong> Entegre Tesis (BF-BOF)<br><strong>Referans:</strong> World Steel Association</p></div><ul><li>1️⃣ Hammadde Hazırlama</li><li>2️⃣ Yüksek Fırın (1600°C)</li><li>3️⃣ Çelik Üretimi (BOF)</li></ul></div>
+            <div class="card"><h3>⚖️ AYAK İZİ (1 ton ham çelik)</h3><table class="balance-table"><thead><tr><th>Parametre</th><th>Değer</th></tr></thead><tbody><tr class="input"><td>Su Tüketimi</td><td>~20 m³</td></tr><tr class="waste"><td>CO2 Emisyonu</td><td>~1.85 ton</td></tr></tbody></table></div>
+            <div class="card"><h3>💧 SU KULLANIMI</h3><ul><li><strong>Soğutma:</strong> %70</li><li><strong>Toz Kontrolü:</strong> %15</li><li><strong>Proses Suyu:</strong> %15</li></ul></div>
+        </div>
+
+        <div id="plastic" class="process-analysis">
+            <!-- Plastik içeriği burada -->
+        </div>
+        <div id="textile" class="process-analysis">
+            <div class="card"><h3>👕 TEKSTİL ENDÜSTRİSİ</h3><div class="system-boundary"><p><strong>Başlangıç:</strong> Pamuk tarlası<br><strong>Bitiş:</strong> Giyim ürünü</p></div><ul><li>1️⃣ Elyaf Üretimi</li><li>2️⃣ İplik Üretimi</li><li>3️⃣ Terbiye (Boyama)</li><li>4️⃣ Konfeksiyon</li></ul></div>
+            <div class="card"><h3>⚖️ BALANS (1 kg kumaş)</h3><table class="balance-table"><thead><tr><th>GİRDİ</th><th>Miktar</th><th>ÇIKTI</th><th>Miktar</th></tr></thead><tbody><tr class="input"><td>Su</td><td>2700L</td><td class="output">Kumaş</td><td>1kg</td></tr><tr class="input"><td>Enerji</td><td>20kWh</td><td class="waste">Atık Su</td><td>2200L</td></tr></tbody></table></div>
+            <div class="card"><h3>💧 BOYAMA PROSESİ</h3><ul><li>Reaktif Boyama: 100-150 L/kg (pamuk).</li><li>Su tasarruflu boyama teknikleri kritik öneme sahiptir.</li></ul></div>
+        </div>
+        <div id="aluminum" class="process-analysis">
+            <div class="card"><h3>⚡ ALÜMİNYUM ENDÜSTRİSİ</h3><div class="system-boundary"><p><strong>Başlangıç:</strong> Boksit madeni<br><strong>Bitiş:</strong> Alüminyum profil</p></div><ul><li>1️⃣ Bayer Prosesi</li><li>2️⃣ Hall-Héroult Elektrolizi</li><li>3️⃣ Döküm</li></ul></div>
+            <div class="card"><h3>⚖️ BALANS (1 ton Al)</h3><table class="balance-table"><thead><tr><th>GİRDİ</th><th>Miktar</th><th>ÇIKTI</th><th>Miktar</th></tr></thead><tbody><tr class="input"><td>Boksit</td><td>4.5t</td><td class="output">Alüminyum</td><td>1t</td></tr><tr class="input"><td>Su</td><td>155m³</td><td class="waste">Kırmızı Çamur</td><td>1.7t</td></tr><tr class="input"><td>Elektrik</td><td>15MWh</td><td class="waste">CO2</td><td>11.5t</td></tr></tbody></table></div>
+            <div class="card"><h3>💧 KIRMIZI ÇAMUR</h3><ul><li>Her 1 ton alüminyum için 1.5-2 ton yüksek alkali (pH 10-13) çamur atığı oluşur.</li></ul></div>
+        </div>
+        <div id="food" class="process-analysis">
+             <div class="card"><h3>🍔 GIDA ENDÜSTRİSİ (ET)</h3><div class="system-boundary"><p><strong>Başlangıç:</strong> Canlı hayvan<br><strong>Bitiş:</strong> Paketlenmiş ürün</p></div><ul><li>1️⃣ İşleme</li><li>2️⃣ Pişirme</li><li>3️⃣ Soğutma</li></ul></div>
+            <div class="card"><h3>⚖️ BALANS (1 kg et)</h3><table class="balance-table"><thead><tr><th>GİRDİ</th><th>Miktar</th><th>ÇIKTI</th><th>Miktar</th></tr></thead><tbody><tr class="input"><td>Su</td><td>15,000L</td><td class="output">Et</td><td>1kg</td></tr><tr class="input"><td>Enerji</td><td>30MJ</td><td class="waste">CO2</td><td>20kg</td></tr></tbody></table></div>
+            <div class="card"><h3>💧 SU KULLANIMI</h3><ul><li>Canlı Hayvan Suyu: %60</li><li>İşleme/Temizlik: %25</li><li>Optimizasyon: Atık su geri kazanımı.</li></ul></div>
+        </div>
+        <div id="agriculture" class="process-analysis">
+            <div class="card"><h3>🌾 TARIM (BUĞDAY)</h3><div class="system-boundary"><p><strong>Başlangıç:</strong> Toprak hazırlığı<br><strong>Bitiş:</strong> Hasat</p></div><ul><li>1️⃣ Ekim</li><li>2️⃣ Sulama</li><li>3️⃣ Bakım</li></ul></div>
+            <div class="card"><h3>⚖️ BALANS (1 ton buğday)</h3><table class="balance-table"><thead><tr><th>GİRDİ</th><th>Miktar</th><th>ÇIKTI</th><th>Miktar</th></tr></thead><tbody><tr class="input"><td>Su</td><td>1,500m³</td><td class="output">Buğday</td><td>1t</td></tr><tr class="input"><td>Gübre</td><td>350kg</td><td class="waste">Buharlaşma</td><td>~1,200m³</td></tr></tbody></table></div>
+            <div class="card"><h3>💧 SU VERİMLİLİĞİ</h3><ul><li>Salma Sulama: %45 verim</li><li>Damlama Sulama: %90 verim</li></ul></div>
+        </div>
+        <div id="mining" class="process-analysis">
+            <div class="card"><h3>⛏️ MADENCİLİK (BAKIR)</h3><div class="system-boundary"><p><strong>Başlangıç:</strong> Cevher<br><strong>Bitiş:</strong> Konsantre metal</p></div><ul><li>1️⃣ Kırma-Öğütme</li><li>2️⃣ Flotasyon</li><li>3️⃣ Liç</li></ul></div>
+            <div class="card"><h3>⚖️ BALANS (1 ton bakır)</h3><table class="balance-table"><thead><tr><th>GİRDİ</th><th>Miktar</th><th>ÇIKTI</th><th>Miktar</th></tr></thead><tbody><tr class="input"><td>Cevher</td><td>200t</td><td class="output">Bakır</td><td>1t</td></tr><tr class="input"><td>Su</td><td>440m³</td><td class="waste">Atık Kaya</td><td>195t</td></tr></tbody></table></div>
+            <div class="card"><h3>💧 KRİTİK SU YÖNETİMİ</h3><ul><li>Asit Maden Drenajı: pH 2-4, ağır metal riski.</li><li>Su Geri Kazanımı: %60-80 potansiyel.</li></ul></div>
+        </div>
+    </div>
+    <script>
+        function showSector(sectorId) {
+            document.querySelectorAll('.process-analysis').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(sectorId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        document.addEventListener('DOMContentLoaded', () => { document.querySelector('[onclick="showSector(\'concrete\')"]').click(); });
+    </script>
+</body>
+</html> 

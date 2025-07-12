@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türkiye Su Potansiyeli - İnteraktif Harita</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .map-container {
+            height: 80vh;
+            position: relative;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .control-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .legend {
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        
+        .info-box {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 350px;
+            z-index: 1000;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .stat-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            border-left: 3px solid #3498db;
+        }
+        
+        .popup-content {
+            min-width: 200px;
+        }
+        
+        .popup-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .popup-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .popup-stat {
+            background: #ecf0f1;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .filter-section {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .filter-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .toggle-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 3px;
+            font-size: 0.9em;
+        }
+        
+        .toggle-button:hover {
+            background: #2980b9;
+        }
+        
+        .toggle-button.active {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌊 TÜRKİYE SU POTANSİYELİ HARİTASI</h1>
+        <p>Bölgesel Su Kaynakları, Tüketim ve Transfer Projeleri</p>
+    </div>
+
+    <div class="map-container">
+        <div id="map"></div>
+        
+        <div class="control-panel">
+            <div class="filter-section">
+                <div class="filter-title">📊 Katman Seçimi</div>
+                <button class="toggle-button active" onclick="toggleLayer('water-sources')">Su Kaynakları</button>
+                <button class="toggle-button active" onclick="toggleLayer('consumption')">Tüketim</button>
+                <button class="toggle-button active" onclick="toggleLayer('transfer')">Transfer Hatları</button>
+                <button class="toggle-button active" onclick="toggleLayer('desalination')">Deniz Suyu Arıtma</button>
+            </div>
+            
+            <div class="filter-section">
+                <div class="filter-title">🎯 Senaryo Seçimi</div>
+                <button class="toggle-button" onclick="setScenario('current')">Mevcut Durum</button>
+                <button class="toggle-button active" onclick="setScenario('2030')">2030 Hedefleri</button>
+                <button class="toggle-button" onclick="setScenario('2050')">2050 Vizyonu</button>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h4>🗺️ Harita Göstergeleri</h4>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3498db;"></div>
+                <span>Yüksek Su Potansiyeli</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f39c12;"></div>
+                <span>Orta Su Potansiyeli</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #e74c3c;"></div>
+                <span>Düşük Su Potansiyeli</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #2ecc71;"></div>
+                <span>Su Transfer Hatları</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9b59b6;"></div>
+                <span>Deniz Suyu Arıtma</span>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>📈 Türkiye Su İstatistikleri</h4>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <strong>234 milyar m³</strong><br>
+                    <small>Toplam Su Potansiyeli</small>
+                </div>
+                <div class="stat-item">
+                    <strong>180 milyar m³</strong><br>
+                    <small>Yıllık Tüketim</small>
+                </div>
+                <div class="stat-item">
+                    <strong>65%</strong><br>
+                    <small>Tarımsal Kullanım</small>
+                </div>
+                <div class="stat-item">
+                    <strong>15%</strong><br>
+                    <small>Kayıp-Kaçak</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        const map = L.map('map').setView([39.0, 35.0], 6);
+
+        // Add base layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define layer groups
+        const layers = {
+            'water-sources': L.layerGroup(),
+            'consumption': L.layerGroup(),
+            'transfer': L.layerGroup(),
+            'desalination': L.layerGroup()
+        };
+
+        // Add all layers to map initially
+        Object.values(layers).forEach(layer => layer.addTo(map));
+
+        // Water basin data
+        const waterBasins = [
+            {
+                name: "Karadeniz Havzası",
+                center: [41.0, 37.0],
+                potential: "Yüksek",
+                annual: "25.3 milyar m³",
+                consumption: "8.2 milyar m³",
+                surplus: "17.1 milyar m³",
+                color: "#3498db"
+            },
+            {
+                name: "Marmara Havzası",
+                center: [40.5, 28.5],
+                potential: "Orta",
+                annual: "21.1 milyar m³",
+                consumption: "28.5 milyar m³",
+                surplus: "-7.4 milyar m³",
+                color: "#e74c3c"
+            },
+            {
+                name: "Ege Havzası",
+                center: [38.5, 27.5],
+                potential: "Orta",
+                annual: "15.8 milyar m³",
+                consumption: "18.3 milyar m³",
+                surplus: "-2.5 milyar m³",
+                color: "#f39c12"
+            },
+            {
+                name: "Akdeniz Havzası",
+                center: [36.5, 34.0],
+                potential: "Orta",
+                annual: "23.4 milyar m³",
+                consumption: "32.1 milyar m³",
+                surplus: "-8.7 milyar m³",
+                color: "#e74c3c"
+            },
+            {
+                name: "Antalya Bölgesi",
+                center: [36.8, 30.7],
+                potential: "Düşük",
+                annual: "7.2 milyar m³",
+                consumption: "12.8 milyar m³",
+                surplus: "-5.6 milyar m³",
+                color: "#e74c3c"
+            },
+            {
+                name: "Konya Kapalı Havzası",
+                center: [38.0, 32.5],
+                potential: "Çok Düşük",
+                annual: "2.1 milyar m³",
+                consumption: "8.4 milyar m³",
+                surplus: "-6.3 milyar m³",
+                color: "#c0392b"
+            },
+            {
+                name: "Fırat-Dicle Havzası",
+                center: [38.5, 40.0],
+                potential: "Yüksek",
+                annual: "28.6 milyar m³",
+                consumption: "19.2 milyar m³",
+                surplus: "9.4 milyar m³",
+                color: "#3498db"
+            },
+            {
+                name: "Doğu Anadolu",
+                center: [39.5, 42.0],
+                potential: "Çok Yüksek",
+                annual: "31.2 milyar m³",
+                consumption: "12.1 milyar m³",
+                surplus: "19.1 milyar m³",
+                color: "#2980b9"
+            }
+        ];
+
+        // Add water basin circles
+        waterBasins.forEach(basin => {
+            const circleSize = Math.abs(parseFloat(basin.annual)) * 800;
+            const circle = L.circle(basin.center, {
+                color: basin.color,
+                fillColor: basin.color,
+                fillOpacity: 0.3,
+                radius: circleSize
+            });
+
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-title">${basin.name}</div>
+                    <div><strong>Potansiyel:</strong> ${basin.potential}</div>
+                    <div><strong>Yıllık Akım:</strong> ${basin.annual}</div>
+                    <div><strong>Tüketim:</strong> ${basin.consumption}</div>
+                    <div><strong>Durum:</strong> <span style="color: ${basin.surplus.includes('-') ? '#e74c3c' : '#27ae60'}">${basin.surplus}</span></div>
+                </div>
+            `;
+
+            circle.bindPopup(popupContent);
+            layers['water-sources'].addLayer(circle);
+        });
+
+        // Transfer lines data
+        const transferLines = [
+            {
+                name: "Kuzey-Güney Ana Hattı",
+                coordinates: [[41.2, 36.3], [37.9, 32.5], [36.9, 30.7]],
+                capacity: "4.7 milyar m³/yıl",
+                length: "850 km",
+                cost: "45-60 milyar $",
+                status: "Planlama"
+            },
+            {
+                name: "Doğu-Batı Ana Hattı", 
+                coordinates: [[41.2, 41.8], [39.7, 37.9], [39.9, 32.9], [38.4, 27.1]],
+                capacity: "3.8 milyar m³/yıl",
+                length: "950 km",
+                cost: "38-52 milyar $",
+                status: "Planlama"
+            },
+            {
+                name: "Marmara Hattı",
+                coordinates: [[40.8, 30.4], [41.0, 28.9], [40.9, 27.5]],
+                capacity: "2.5 milyar m³/yıl",
+                length: "280 km", 
+                cost: "18-25 milyar $",
+                status: "Planlama"
+            }
+        ];
+
+        // Add transfer lines
+        transferLines.forEach(line => {
+            const polyline = L.polyline(line.coordinates, {
+                color: '#2ecc71',
+                weight: 6,
+                opacity: 0.8
+            });
+
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-title">${line.name}</div>
+                    <div><strong>Kapasite:</strong> ${line.capacity}</div>
+                    <div><strong>Uzunluk:</strong> ${line.length}</div>
+                    <div><strong>Maliyet:</strong> ${line.cost}</div>
+                    <div><strong>Durum:</strong> ${line.status}</div>
+                </div>
+            `;
+
+            polyline.bindPopup(popupContent);
+            layers['transfer'].addLayer(polyline);
+        });
+
+        // Desalination plants
+        const desalinationPlants = [
+            {
+                name: "İzmir Foça Deniz Suyu Arıtma",
+                coordinates: [38.67, 26.76],
+                capacity: "100.000 m³/gün",
+                technology: "Ters Osmoz",
+                cost: "150 milyon $",
+                status: "Planlama"
+            },
+            {
+                name: "Antalya Kemer Deniz Suyu Arıtma",
+                coordinates: [36.60, 30.56],
+                capacity: "50.000 m³/gün", 
+                technology: "Hibrit RO+MED",
+                cost: "80 milyon $",
+                status: "Planlama"
+            },
+            {
+                name: "Mersin Erdemli Deniz Suyu Arıtma",
+                coordinates: [36.61, 34.31],
+                capacity: "200.000 m³/gün",
+                technology: "Ters Osmoz",
+                cost: "250 milyon $",
+                status: "Fizibilite"
+            },
+            {
+                name: "Muğla Bodrum Deniz Suyu Arıtma",
+                coordinates: [37.03, 27.43],
+                capacity: "30.000 m³/gün",
+                technology: "Güneş+RO",
+                cost: "60 milyon $",
+                status: "Planlama"
+            },
+            {
+                name: "Çanakkale Deniz Suyu Arıtma",
+                coordinates: [40.15, 26.41],
+                capacity: "75.000 m³/gün",
+                technology: "Rüzgar+RO", 
+                cost: "120 milyon $",
+                status: "Fizibilite"
+            }
+        ];
+
+        // Add desalination plants
+        desalinationPlants.forEach(plant => {
+            const marker = L.circleMarker(plant.coordinates, {
+                color: '#9b59b6',
+                fillColor: '#9b59b6',
+                fillOpacity: 0.8,
+                radius: 8
+            });
+
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-title">${plant.name}</div>
+                    <div><strong>Kapasite:</strong> ${plant.capacity}</div>
+                    <div><strong>Teknoloji:</strong> ${plant.technology}</div>
+                    <div><strong>Maliyet:</strong> ${plant.cost}</div>
+                    <div><strong>Durum:</strong> ${plant.status}</div>
+                </div>
+            `;
+
+            marker.bindPopup(popupContent);
+            layers['desalination'].addLayer(marker);
+        });
+
+        // Major cities consumption data
+        const majorCities = [
+            {
+                name: "İstanbul",
+                coordinates: [41.01, 28.96],
+                population: "15.5 milyon",
+                consumption: "2.8 milyar m³/yıl",
+                perCapita: "495 L/gün",
+                deficit: "1.2 milyar m³"
+            },
+            {
+                name: "Ankara",
+                coordinates: [39.92, 32.85],
+                population: "5.7 milyon",
+                consumption: "0.8 milyar m³/yıl",
+                perCapita: "385 L/gün",
+                deficit: "0.3 milyar m³"
+            },
+            {
+                name: "İzmir",
+                coordinates: [38.42, 27.13],
+                population: "4.4 milyon",
+                consumption: "0.9 milyar m³/yıl",
+                perCapita: "560 L/gün",
+                deficit: "0.4 milyar m³"
+            },
+            {
+                name: "Bursa",
+                coordinates: [40.18, 29.06],
+                population: "3.2 milyon",
+                consumption: "0.5 milyar m³/yıl",
+                perCapita: "430 L/gün",
+                deficit: "0.1 milyar m³"
+            },
+            {
+                name: "Antalya",
+                coordinates: [36.88, 30.70],
+                population: "2.6 milyon",
+                consumption: "0.6 milyar m³/yıl",
+                perCapita: "630 L/gün",
+                deficit: "0.3 milyar m³"
+            },
+            {
+                name: "Adana",
+                coordinates: [37.00, 35.32],
+                population: "2.3 milyon",
+                consumption: "0.4 milyar m³/yıl",
+                perCapita: "480 L/gün",
+                deficit: "0.2 milyar m³"
+            }
+        ];
+
+        // Add major cities
+        majorCities.forEach(city => {
+            const marker = L.circleMarker(city.coordinates, {
+                color: '#e67e22',
+                fillColor: '#e67e22',
+                fillOpacity: 0.6,
+                radius: Math.sqrt(parseFloat(city.population)) * 2
+            });
+
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-title">${city.name}</div>
+                    <div class="popup-stats">
+                        <div class="popup-stat">
+                            <strong>${city.population}</strong><br>
+                            <small>Nüfus</small>
+                        </div>
+                        <div class="popup-stat">
+                            <strong>${city.consumption}</strong><br>
+                            <small>Yıllık Tüketim</small>
+                        </div>
+                        <div class="popup-stat">
+                            <strong>${city.perCapita}</strong><br>
+                            <small>Kişi Başı</small>
+                        </div>
+                        <div class="popup-stat">
+                            <strong style="color: #e74c3c">${city.deficit}</strong><br>
+                            <small>Açık</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            marker.bindPopup(popupContent);
+            layers['consumption'].addLayer(marker);
+        });
+
+        // Layer control functions
+        function toggleLayer(layerName) {
+            const button = event.target;
+            if (button.classList.contains('active')) {
+                map.removeLayer(layers[layerName]);
+                button.classList.remove('active');
+            } else {
+                map.addLayer(layers[layerName]);
+                button.classList.add('active');
+            }
+        }
+
+        // Scenario control
+        let currentScenario = '2030';
+
+        function setScenario(scenario) {
+            // Remove active class from all scenario buttons
+            document.querySelectorAll('.toggle-button').forEach(btn => {
+                if (btn.onclick.toString().includes('setScenario')) {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            currentScenario = scenario;
+            
+            // Update map data based on scenario
+            updateMapForScenario(scenario);
+        }
+
+        function updateMapForScenario(scenario) {
+            // This would update the map layers based on different scenarios
+            console.log(`Scenario changed to: ${scenario}`);
+            
+            // Update info box with scenario-specific data
+            const infoBox = document.querySelector('.info-box');
+            let scenarioData;
+            
+            switch(scenario) {
+                case 'current':
+                    scenarioData = {
+                        potential: '234 milyar m³',
+                        consumption: '180 milyar m³',
+                        agricultural: '65%',
+                        losses: '15%'
+                    };
+                    break;
+                case '2030':
+                    scenarioData = {
+                        potential: '260 milyar m³',
+                        consumption: '195 milyar m³',
+                        agricultural: '60%',
+                        losses: '10%'
+                    };
+                    break;
+                case '2050':
+                    scenarioData = {
+                        potential: '290 milyar m³',
+                        consumption: '210 milyar m³',
+                        agricultural: '55%',
+                        losses: '5%'
+                    };
+                    break;
+            }
+            
+            // Update stats display
+            const statItems = infoBox.querySelectorAll('.stat-item strong');
+            statItems[0].textContent = scenarioData.potential;
+            statItems[1].textContent = scenarioData.consumption;
+            statItems[2].textContent = scenarioData.agricultural;
+            statItems[3].textContent = scenarioData.losses;
+        }
+
+        // Initialize with default scenario
+        updateMapForScenario(currentScenario);
+
+        // Add scale control
+        L.control.scale({
+            position: 'bottomright',
+            imperial: false
+        }).addTo(map);
+
+        // Custom zoom control
+        map.addControl(L.control.zoom({
+            position: 'topleft'
+        }));
+    </script>
+</body>
+</html> 

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deniz Suyu Arıtma Teknolojileri - Detaylı Analiz</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f7f6;
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+        
+        .card h2 {
+            font-size: 1.8em;
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 1.4em;
+            color: #2980b9;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .flow-step {
+            text-align: center;
+            max-width: 150px;
+            font-weight: bold;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: #3498db;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item active">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>⚙️ Deniz Suyu Arıtma Teknolojileri</h1>
+            <p>Yöntemlerin Derinlemesine İncelenmesi ve Karşılaştırılması</p>
+        </div>
+
+        <div class="card">
+            <h2>1. Ters Osmoz (Reverse Osmosis - RO)</h2>
+            <p>Günümüzde deniz suyu arıtımında en yaygın kullanılan teknolojidir. Yüksek basınç altında, suyun yarı geçirgen bir membran üzerinden geçirilerek tuz ve diğer minerallerden ayrıştırılması prensibine dayanır.</p>
+            
+            <h3>Süreç Akışı:</h3>
+            <div class="process-flow">
+                <div class="flow-step">Deniz Suyu Alımı</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Ön Arıtma (Filtrasyon)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Yüksek Basınç Pompası</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">RO Membranları</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">Son Arıtma ve Ürün Suyu</div>
+            </div>
+
+            <h3>Avantajları:</h3>
+            <ul>
+                <li><strong>Yüksek Enerji Verimliliği:</strong> Özellikle Enerji Geri Kazanım Cihazları (ERD) ile kWh/m³ başına maliyeti en düşük yöntemdir.</li>
+                <li><strong>Modülerlik:</strong> Tesis kapasitesi ihtiyaca göre kolayca artırılabilir.</li>
+                <li><strong>Düşük İşletme Sıcaklığı:</strong> Ortam sıcaklığında çalışır, termal strese neden olmaz.</li>
+                <li><strong>Yüksek Arıtma Kalitesi:</strong> Çok yüksek saflıkta su elde edilebilir.</li>
+            </ul>
+
+            <h3>Dezavantajları:</h3>
+            <ul>
+                <li><strong>Membran Kirliliği (Fouling):</strong> Organik veya inorganik kirliliğe karşı hassastır, kapsamlı ön arıtma gerektirir.</li>
+                <li><strong>Konsantre Atık (Brine):</strong> Yüksek tuzluluğa sahip atık suyun deşarjı çevresel bir sorundur.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>2. Termal Yöntemler (MED & MSF)</h2>
+            <p>Suyun buharlaştırılıp yeniden yoğunlaştırılarak tuzdan arındırılması esasına dayanan, daha eski ama güvenilir teknolojilerdir.</p>
+            
+            <h3>Multi-Effect Distillation (MED - Çok Etkili Damıtma)</h3>
+            <p>Düşük basınçlı buhar kullanılarak, suyun seri haldeki "etkiler" (effects) veya odacıklarda buharlaştırılması ve her bir etkinin ürettiği buharın bir sonrakini ısıtmasıyla çalışır. Enerji verimliliği MSF'ye göre daha yüksektir.</p>
+
+            <h3>Multi-Stage Flash (MSF - Çok Aşamalı Flaş Damıtma)</h3>
+            <p>Tuzlu suyun yüksek sıcaklığa kadar ısıtıldıktan sonra, basıncın daha düşük olduğu bir dizi "aşama"dan (stage) geçirilerek aniden buharlaştırılması (flashing) ile çalışır.</p>
+
+            <h3>Avantajları:</h3>
+            <ul>
+                <li><strong>Güvenilirlik:</strong> Ham su kalitesindeki değişimlere karşı RO'ya göre daha dayanıklıdır.</li>
+                <li><strong>Atık Isı Kullanımı:</strong> Enerji santralleri veya endüstriyel tesislerin atık ısısıyla entegre çalışabilir, bu da işletme maliyetini düşürür.</li>
+                <li><strong>Daha Az Ön Arıtma:</strong> Genellikle daha az hassas bir ön arıtma gerektirir.</li>
+            </ul>
+
+            <h3>Dezavantajları:</h3>
+            <ul>
+                <li><strong>Yüksek Enerji Tüketimi:</strong> Atık ısı kaynağı yoksa, RO'ya göre çok daha fazla enerji tüketir.</li>
+                <li><strong>Yüksek Yatırım Maliyeti (CAPEX):</strong> Tesis kurulum maliyetleri daha yüksektir.</li>
+                <li><strong>Korozyon Riski:</strong> Yüksek sıcaklıklar nedeniyle korozyona daha yatkındır.</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>3. Hibrit Sistemler ve Brine Yönetimi</h2>
+            <h3>Hibrit (RO + Termal) Sistemler</h3>
+            <p>Genellikle RO ve MED/MSF sistemlerinin bir arada kullanıldığı entegre tesislerdir. Bu yaklaşım, her iki teknolojinin de avantajlarını birleştirmeyi hedefler. Örneğin, bir termal tesisin çıktısı RO için ideal sıcaklıkta olabilir veya RO'dan çıkan brine, tuzluluğu daha da artırılarak termal bir tesise beslenebilir. Bu, toplam su geri kazanım oranını %90'ların üzerine çıkarabilir.</p>
+
+            <h3>Brine (Konsantre Atık) Yönetimi</h3>
+            <p>Arıtma sonrası geriye kalan yüksek tuzlu suyun yönetimi, sürdürülebilirliğin en önemli parçasıdır. Gelişmiş çözümler şunları içerir:</p>
+            <ul>
+                <li><strong>Sıfır Sıvı Deşarj (ZLD):</strong> Kristalizatörler ve buharlaştırıcılar kullanılarak suyun tamamının geri kazanılması ve geriye sadece katı tuzun bırakılmasıdır.</li>
+                <li><strong>Kaynak Geri Kazanımı:</strong> Brine içerisindeki değerli minerallerin (Lityum, Magnezyum, Sodyum Klorür vb.) ekonomik olarak geri kazanılması.</li>
+                <li><strong>Difüzörler ile Deşarj:</strong> Brine'ın deniz ortamına kontrollü bir şekilde, hızlı karışım sağlayacak özel difüzör sistemleri ile deşarj edilerek çevresel etkinin en aza indirilmesi.</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="deniz_suyu.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #2c3e50; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🔙 Deniz Suyu Arıtma Ana Sayfasına Dön</a>
+        </div>
+
+    </div>
+</body>
+</html> 

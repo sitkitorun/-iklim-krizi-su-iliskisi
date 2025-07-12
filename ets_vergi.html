@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETS Vergilendirme Sistemi - Türkiye Su Sorunu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .ets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .comparison-table th {
+            background: #e74c3c;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .high-risk { background: #fadbd8 !important; }
+        .medium-risk { background: #fef9e7 !important; }
+        .low-risk { background: #d5f4e6 !important; }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .tax-simulator {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .tax-input {
+            margin: 15px 0;
+        }
+        
+        .tax-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .tax-input input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .calculate-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item active">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>💰 Emisyon Ticaret Sistemi (ETS) ve Karbon Vergisi</h1>
+            <p>Avrupa Birliği Emisyon Ticaret Sistemi ve Türkiye</p>
+        </div>
+
+        <div class="ets-grid">
+            <div class="card">
+                <h3>🇪🇺 AB ETS vs TÜRKİYE</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Parametre</th>
+                            <th>AB ETS</th>
+                            <th>Türkiye Mevcut</th>
+                            <th>Türkiye Potansiyel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO2 Fiyatı</td>
+                            <td>80-90 €/ton</td>
+                            <td>-</td>
+                            <td>50-70 €/ton</td>
+                        </tr>
+                        <tr>
+                            <td>Kapsama Alanı</td>
+                            <td>%45 toplam emisyon</td>
+                            <td>-</td>
+                            <td>%40 emisyon</td>
+                        </tr>
+                        <tr>
+                            <td>Yıllık Gelir</td>
+                            <td>57 milyar €</td>
+                            <td>-</td>
+                            <td>26 milyar €</td>
+                        </tr>
+                        <tr>
+                            <td>Sektörler</td>
+                            <td>Enerji, Sanayi</td>
+                            <td>-</td>
+                            <td>Enerji, Çimento, Çelik</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">520</span>
+                        <span>milyon ton/yıl<br>Türkiye CO2</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">208</span>
+                        <span>milyon ton/yıl<br>ETS Kapsamında</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚠️ CBAM TEHDİDİ ANALİZİ</h3>
+                
+                <h4>🚨 Karbon Sınır Düzeltme Mekanizması:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>2026 yürürlük:</strong> Çimento, çelik, alüminyum</li>
+                    <li><strong>İlave vergi:</strong> 50-80 €/ton CO2</li>
+                    <li><strong>İhracat riski:</strong> %15-25 rekabet kaybı</li>
+                    <li><strong>Türkiye etkisi:</strong> 8-12 milyar €/yıl</li>
+                </ul>
+
+                <h4>📊 Sektörel CBAM Etkisi:</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Sektör</th>
+                            <th>İhracat (milyar €)</th>
+                            <th>Ek Maliyet (%)</th>
+                            <th>Risk Seviyesi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Çelik</td>
+                            <td>4.8</td>
+                            <td>+18-25%</td>
+                            <td class="high-risk">Çok Yüksek</td>
+                        </tr>
+                        <tr>
+                            <td>Çimento</td>
+                            <td>0.8</td>
+                            <td>+35-45%</td>
+                            <td class="high-risk">Kritik</td>
+                        </tr>
+                        <tr>
+                            <td>Alüminyum</td>
+                            <td>1.2</td>
+                            <td>+22-30%</td>
+                            <td class="high-risk">Yüksek</td>
+                        </tr>
+                        <tr>
+                            <td>Kimya</td>
+                            <td>2.1</td>
+                            <td>+12-18%</td>
+                            <td class="medium-risk">Orta</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>💸 TÜRKİYE ETS TASARIMI</h3>
+                
+                <div class="tax-simulator">
+                    <h4>🎯 Karbon Vergisi Simülatörü</h4>
+                    
+                    <div class="tax-input">
+                        <label>CO2 Fiyatı (€/ton):</label>
+                        <input type="range" id="co2-price" min="30" max="100" value="60" oninput="updateTaxCalculation()">
+                        <span id="price-display">60 €/ton</span>
+                    </div>
+                    
+                    <div class="tax-input">
+                        <label>Kapsama Oranı (%):</label>
+                        <input type="range" id="coverage" min="25" max="50" value="40" oninput="updateTaxCalculation()">
+                        <span id="coverage-display">40%</span>
+                    </div>
+                    
+                    <div id="tax-results" style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                            <strong>Yıllık Vergi Geliri:</strong>
+                            <span id="annual-revenue">26.0 milyar €</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                            <strong>Kapsanan Emisyon:</strong>
+                            <span id="covered-emissions">208 milyon ton CO2</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                            <strong>Ortalama Sanayi Maliyeti:</strong>
+                            <span id="industry-cost">+%12.5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>📋 Önerilen ETS Parametreleri:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Başlangıç fiyatı:</strong> 45 €/ton CO2 (2025)</li>
+                    <li><strong>Yıllık artış:</strong> %5 (AB ile uyum)</li>
+                    <li><strong>Ücretsiz tahsis:</strong> %75 (ilk 3 yıl)</li>
+                    <li><strong>Gelir kullanımı:</strong> %60 yeşil yatırım, %40 vergi indirimi</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>📈 EKONOMİK ETKİ ANALİZİ</h3>
+                
+                <h4>🔥 Enflasyon Etkisi (İlk Yıl):</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Sektör</th>
+                            <th>Fiyat Artışı (%)</th>
+                            <th>CPI Ağırlığı (%)</th>
+                            <th>Enflasyon Katkısı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Elektrik</td>
+                            <td>+8.5</td>
+                            <td>4.2</td>
+                            <td class="high-risk">+0.36%</td>
+                        </tr>
+                        <tr>
+                            <td>Ulaştırma</td>
+                            <td>+12.0</td>
+                            <td>18.5</td>
+                            <td class="high-risk">+2.22%</td>
+                        </tr>
+                        <tr>
+                            <td>Konut</td>
+                            <td>+4.5</td>
+                            <td>15.8</td>
+                            <td class="medium-risk">+0.71%</td>
+                        </tr>
+                        <tr>
+                            <td>Sanayi Malları</td>
+                            <td>+3.2</td>
+                            <td>8.1</td>
+                            <td class="low-risk">+0.26%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOPLAM ETKİ</strong></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="high-risk"><strong>+3.4%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>💰 Uzun Vadeli Ekonomik Faydalar:</h4>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">180</span>
+                        <span>milyar €<br>10 Yıl Vergi Geliri</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2.8</span>
+                        <span>milyon<br>Yeşil İstihdam</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">%35</span>
+                        <span>CO2 Azaltımı<br>2035 Hedefi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🌱 YEŞİL YATIRIM FONLAMASI</h3>
+                
+                <h4>💚 Vergi Geliri Dağılımı:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>%35 - Su Projelerine:</strong> 9.1 milyar €/yıl
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>Su transfer projeleri: 5.5 milyar €</li>
+                            <li>Deniz suyu arıtma: 2.8 milyar €</li>
+                            <li>Geri dönüşüm tesisleri: 0.8 milyar €</li>
+                        </ul>
+                    </li>
+                    <li><strong>%25 - Yenilenebilir Enerji:</strong> 6.5 milyar €/yıl</li>
+                    <li><strong>%20 - Endüstri Dönüşümü:</strong> 5.2 milyar €/yıl</li>
+                    <li><strong>%20 - Vergi İndirimleri:</strong> 5.2 milyar €/yıl</li>
+                </ul>
+
+                <h4>📊 10 Yıllık Yatırım Planı:</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Alan</th>
+                            <th>Toplam Yatırım (milyar €)</th>
+                            <th>İstihdam (bin kişi)</th>
+                            <th>CO2 Azaltımı (milyon ton)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Su Altyapısı</td>
+                            <td>91</td>
+                            <td>850</td>
+                            <td class="low-risk">-45</td>
+                        </tr>
+                        <tr>
+                            <td>Yenilenebilir Enerji</td>
+                            <td>65</td>
+                            <td>1200</td>
+                            <td class="low-risk">-180</td>
+                        </tr>
+                        <tr>
+                            <td>Endüstri 4.0</td>
+                            <td>52</td>
+                            <td>750</td>
+                            <td class="low-risk">-95</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>⏰ UYGULAMA TAKVIMI</h3>
+                
+                <h4>🚀 Faz 1 (2025-2027): Pilot Uygulama</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Kapsam:</strong> Sadece enerji sektörü</li>
+                    <li><strong>Fiyat:</strong> 35-45 €/ton CO2</li>
+                    <li><strong>Ücretsiz tahsis:</strong> %85</li>
+                    <li><strong>Beklenen gelir:</strong> 8-12 milyar €/yıl</li>
+                </ul>
+
+                <h4>⚡ Faz 2 (2027-2030): Genişletme</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Kapsam:</strong> + Çelik, çimento, alüminyum</li>
+                    <li><strong>Fiyat:</strong> 55-70 €/ton CO2</li>
+                    <li><strong>Ücretsiz tahsis:</strong> %70</li>
+                    <li><strong>Beklenen gelir:</strong> 18-24 milyar €/yıl</li>
+                </ul>
+
+                <h4>🎯 Faz 3 (2030+): Tam Sistem</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Kapsam:</strong> Tüm ağır sanayi + ulaştırma</li>
+                    <li><strong>Fiyat:</strong> AB ETS ile uyumlu</li>
+                    <li><strong>Ücretsiz tahsis:</strong> %50</li>
+                    <li><strong>Beklenen gelir:</strong> 35-45 milyar €/yıl</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="karbon_vergi_sistemi.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #e74c3c; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">📄 Karbon Vergi Detayları</a>
+            <a href="tum_sektorler.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #34495e; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🏢 Sektörel Etkiler</a>
+        </div>
+    </div>
+
+    <script>
+        function updateTaxCalculation() {
+            const co2Price = document.getElementById('co2-price').value;
+            const coverage = document.getElementById('coverage').value;
+            
+            document.getElementById('price-display').textContent = co2Price + ' €/ton';
+            document.getElementById('coverage-display').textContent = coverage + '%';
+            
+            const totalEmissions = 520; // milyon ton CO2
+            const coveredEmissions = (totalEmissions * coverage / 100);
+            const annualRevenue = (coveredEmissions * co2Price / 1000).toFixed(1);
+            const industryCost = (co2Price * 0.15).toFixed(1);
+            
+            document.getElementById('annual-revenue').textContent = annualRevenue + ' milyar €';
+            document.getElementById('covered-emissions').textContent = coveredEmissions.toFixed(0) + ' milyon ton CO2';
+            document.getElementById('industry-cost').textContent = '+%' + industryCost;
+        }
+    </script>
+</body>
+</html> 

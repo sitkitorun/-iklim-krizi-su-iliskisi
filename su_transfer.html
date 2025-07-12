@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Transfer Projesi - Detaylı Mühendislik Analizi</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .page-title h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .map-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .map-container {
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .route-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .route-table th,
+        .route-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .route-table th {
+            background: #3498db;
+            color: white;
+        }
+        
+        .technical-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .spec-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .cost-breakdown {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .phase-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .phase-item {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            position: relative;
+        }
+        
+        .phase-item:after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3498db;
+            font-size: 1.2em;
+        }
+        
+        .phase-item:last-child:after { display: none; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>🚰 SU TRANSFER PROJESİ</h1>
+            <p>Ulusal Su Ağı - Detaylı Mühendislik ve Güzergah Analizi</p>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">🎯 PROJENİN AMACI VE STRATEJİK ÖNEMİ</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
+                <div style="flex: 3; min-width: 300px;">
+                    <p style="text-align: justify; line-height: 1.8;">Türkiye'nin su kaynakları, coğrafi olarak büyük bir dengesizlik göstermektedir. Ülkenin su potansiyelinin %65'i Doğu Karadeniz, Fırat-Dicle ve Doğu Anadolu gibi nüfus yoğunluğunun daha az olduğu bölgelerde toplanırken; sanayinin ve nüfusun %60'ından fazlasının bulunduğu Marmara, Ege ve İç Anadolu bölgeleri ciddi su stresi yaşamaktadır. Bu durum, iklim değişikliğinin etkileriyle birleştiğinde, ulusal su güvenliği için stratejik bir tehdit oluşturmaktadır.</p>
+                    <p style="text-align: justify; line-height: 1.8; margin-top: 15px;">Bu Ulusal Su Ağı projesi, suyun bol olduğu havzalardan (Karadeniz, Fırat-Dicle, Doğu Anadolu) su kıtlığı çeken sanayi ve tarım merkezlerine (İstanbul, Ankara, Konya, İzmir) aktarılmasını öngören, petrol boru hatlarına benzer bir altyapı stratejisidir. Projenin temel amacı, bölgesel su dengesizliğini ortadan kaldırarak tarımsal üretimin sürdürülebilirliğini sağlamak, sanayinin su ihtiyacını güvence altına almak ve büyük şehirlerin içme suyu krizlerini önlemektir. Su, artık petrolden daha değerli bir stratejik varlık olarak kabul edilmeli ve bu projeler, Türkiye'nin 2053 vizyonu için kritik bir altyapı yatırımı olarak görülmelidir.</p>
+                </div>
+                <div style="flex: 2; min-width: 300px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/SoEdjZf-6Ac" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/5k4qk0JYpzQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/ooBNEKK_YVc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/Z0IhivJXAQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- İNTERAKTİF HARİTA -->
+        <div class="map-section">
+            <h3>🗺️ Transfer Hatları Güzergah Haritası</h3>
+            <div id="map" class="map-container"></div>
+            <div style="margin-top: 15px; text-align: center;">
+                <button onclick="showRoute('kuzey-guney')" style="margin: 5px; padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 5px;">Kuzey-Güney Hattı</button>
+                <button onclick="showRoute('dogu-bati')" style="margin: 5px; padding: 10px 20px; background: #27ae60; color: white; border: none; border-radius: 5px;">Doğu-Batı Hattı</button>
+                <button onclick="showRoute('dicle-firat')" style="margin: 5px; padding: 10px 20px; background: #f39c12; color: white; border: none; border-radius: 5px;">Fırat-Dicle Hattı</button>
+                <button onclick="showRoute('yesilirmak')" style="margin: 5px; padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px;">Yeşilırmak-Kızılırmak Hattı</button>
+                <button onclick="showRoute('all')" style="margin: 5px; padding: 10px 20px; background: #34495e; color: white; border: none; border-radius: 5px;">Tüm Hatlar</button>
+            </div>
+        </div>
+
+        <!-- NÜFUS VE İHTİYAÇ ANALİZİ -->
+        <div class="project-grid">
+            <div class="card">
+                <h3>👥 Nüfus ve Su İhtiyaç Analizi</h3>
+                <table class="route-table">
+                    <thead>
+                        <tr>
+                            <th>Bölge</th>
+                            <th>Nüfus (2024)</th>
+                            <th>2050 Proj.</th>
+                            <th>Su İhtiyacı</th>
+                            <th>Mevcut Kapasite</th>
+                            <th>Açık</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>İstanbul</strong></td>
+                            <td>15.5M</td>
+                            <td>18.2M</td>
+                            <td>3.2 milyar m³</td>
+                            <td>2.1 milyar m³</td>
+                            <td style="color: #e74c3c;"><strong>-1.1 milyar m³</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ankara</strong></td>
+                            <td>5.7M</td>
+                            <td>6.8M</td>
+                            <td>1.1 milyar m³</td>
+                            <td>0.8 milyar m³</td>
+                            <td style="color: #e74c3c;"><strong>-0.3 milyar m³</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>İzmir</strong></td>
+                            <td>4.4M</td>
+                            <td>5.1M</td>
+                            <td>1.0 milyar m³</td>
+                            <td>0.7 milyar m³</td>
+                            <td style="color: #e74c3c;"><strong>-0.3 milyar m³</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Antalya</strong></td>
+                            <td>2.6M</td>
+                            <td>3.5M</td>
+                            <td>0.8 milyar m³</td>
+                            <td>0.4 milyar m³</td>
+                            <td style="color: #e74c3c;"><strong>-0.4 milyar m³</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Konya</strong></td>
+                            <td>2.3M</td>
+                            <td>2.7M</td>
+                            <td>3.2 milyar m³</td>
+                            <td>0.6 milyar m³</td>
+                            <td style="color: #e74c3c;"><strong>-2.6 milyar m³</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>💧 Kaynak Potansiyeli Analizi</h3>
+                <table class="route-table">
+                    <thead>
+                        <tr>
+                            <th>Kaynak Bölgesi</th>
+                            <th>Yıllık Akım</th>
+                            <th>Mevcut Kullanım</th>
+                            <th>Transfer Potansiyeli</th>
+                            <th>Güvenilirlik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Karadeniz Havzası</strong></td>
+                            <td>25.3 milyar m³</td>
+                            <td>8.2 milyar m³</td>
+                            <td style="color: #27ae60;"><strong>17.1 milyar m³</strong></td>
+                            <td>%95</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fırat-Dicle</strong></td>
+                            <td>28.6 milyar m³</td>
+                            <td>19.2 milyar m³</td>
+                            <td style="color: #27ae60;"><strong>9.4 milyar m³</strong></td>
+                            <td>%85</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Doğu Anadolu</strong></td>
+                            <td>31.2 milyar m³</td>
+                            <td>12.1 milyar m³</td>
+                            <td style="color: #27ae60;"><strong>19.1 milyar m³</strong></td>
+                            <td>%90</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Çoruh Havzası</strong></td>
+                            <td>6.2 milyar m³</td>
+                            <td>1.8 milyar m³</td>
+                            <td style="color: #27ae60;"><strong>4.4 milyar m³</strong></td>
+                            <td>%85</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- KUZEY-GÜNEY HATTI DETAYI -->
+        <div class="card">
+            <h3>🔵 KUZEY-GÜNEY ANA HATTI (850 km)</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h4>🗺️ Güzergah Detayları:</h4>
+                    <table class="route-table">
+                        <thead>
+                            <tr>
+                                <th>Segment</th>
+                                <th>Mesafe</th>
+                                <th>Yöntem</th>
+                                <th>Zorluk</th>
+                                <th>Maliyet</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Samsun-Çorum</td>
+                                <td>120 km</td>
+                                <td>Açık kazı + 2 tünel</td>
+                                <td>Orta</td>
+                                <td>6-8 milyar $</td>
+                            </tr>
+                            <tr>
+                                <td>Çorum-Ankara</td>
+                                <td>150 km</td>
+                                <td>Açık kazı + köprüler</td>
+                                <td>Düşük</td>
+                                <td>8-11 milyar $</td>
+                            </tr>
+                            <tr>
+                                <td>Ankara-Konya</td>
+                                <td>250 km</td>
+                                <td>Açık kazı (düz arazi)</td>
+                                <td>Düşük</td>
+                                <td>12-15 milyar $</td>
+                            </tr>
+                            <tr>
+                                <td>Konya-Antalya</td>
+                                <td>330 km</td>
+                                <td>Toros tünelleri</td>
+                                <td>Çok Yüksek</td>
+                                <td>19-26 milyar $</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h4>⚡ Teknik Özellikler:</h4>
+                    <div class="technical-specs">
+                        <div class="spec-item">
+                            <strong>Kapasite</strong><br>
+                            150 m³/s<br>
+                            4.7 milyar m³/yıl
+                        </div>
+                        <div class="spec-item">
+                            <strong>Boru Çapı</strong><br>
+                            3.5-4.0 m<br>
+                            Çelik/Beton
+                        </div>
+                        <div class="spec-item">
+                            <strong>Pompa Gücü</strong><br>
+                            8 istasyon<br>
+                            280 MW toplam
+                        </div>
+                        <div class="spec-item">
+                            <strong>Yükselti</strong><br>
+                            +900 m (max)<br>
+                            -1000 m (son segment)
+                        </div>
+                    </div>
+
+                    <div class="cost-breakdown">
+                        <h4>💰 Maliyet Dağılımı:</h4>
+                        <ul>
+                            <li><strong>Toros Tünelleri:</strong> 19-26 milyar $ (%42-43%)</li>
+                            <li><strong>Düz arazi kazısı:</strong> 12-15 milyar $ (%27%)</li>
+                            <li><strong>Pompa istasyonları:</strong> 8-11 milyar $ (%18-19%)</li>
+                            <li><strong>Köprü ve diğer:</strong> 6-8 milyar $ (%13%)</li>
+                        </ul>
+                        <p><strong>TOPLAM: 45-60 milyar $</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOĞU-BATI HATTI -->
+        <div class="card">
+            <h3>🟢 DOĞU-BATI ANA HATTI (950 km)</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h4>🗺️ Optimum Güzergah:</h4>
+                    <table class="route-table">
+                        <thead>
+                            <tr>
+                                <th>Segment</th>
+                                <th>Mesafe</th>
+                                <th>Ana Zorluk</th>
+                                <th>Çözüm</th>
+                                <th>Maliyet</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Artvin-Erzincan</td>
+                                <td>200 km</td>
+                                <td>Dağlık arazi (%90)</td>
+                                <td>80 km tünel</td>
+                                <td>15-20 milyar $</td>
+                            </tr>
+                            <tr>
+                                <td>Erzincan-Sivas</td>
+                                <td>180 km</td>
+                                <td>Vadiler arası geçiş</td>
+                                <td>12 km köprü</td>
+                                <td>8-11 milyar $</td>
+                            </tr>
+                            <tr>
+                                <td>Sivas-Ankara</td>
+                                <td>320 km</td>
+                                <td>Düz arazi (%70)</td>
+                                <td>Açık kazı</td>
+                                <td>10-14 milyar $</td>
+                            </tr>
+                            <tr>
+                                <td>Ankara-İzmir</td>
+                                <td>250 km</td>
+                                <td>Batı Anadolu geçişi</td>
+                                <td>25 km tünel</td>
+                                <td>12-16 milyar $</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h4>🔧 Mühendislik Çözümleri:</h4>
+                    <div class="technical-specs">
+                        <div class="spec-item">
+                            <strong>Toplam Tünel</strong><br>
+                            105 km<br>
+                            TBM + NATM
+                        </div>
+                        <div class="spec-item">
+                            <strong>Köprü Yapıları</strong><br>
+                            12 km<br>
+                            Viaduct tipi
+                        </div>
+                        <div class="spec-item">
+                            <strong>Enerji Üretimi</strong><br>
+                            120 MW<br>
+                            Ankara-İzmir düşüş
+                        </div>
+                        <div class="spec-item">
+                            <strong>Kapasité</strong><br>
+                            120 m³/s<br>
+                            3.8 milyar m³/yıl
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DİCLE-FIRAT HAVZASI TRANSFERİ -->
+        <div class="card">
+            <h3>🔵 DİCLE-FIRAT HAVZASI TRANSFERİ</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h4>💧 Havza Potansiyeli:</h4>
+                    <table class="route-table">
+                        <thead>
+                            <tr>
+                                <th>Parametre</th>
+                                <th>Dicle</th>
+                                <th>Fırat</th>
+                                <th>Toplam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Yıllık Akım</strong></td>
+                                <td>21.33 milyar m³</td>
+                                <td>31.61 milyar m³</td>
+                                <td>52.94 milyar m³</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Yurtdışına Çıkan</strong></td>
+                                <td>12 milyar m³</td>
+                                <td>18 milyar m³</td>
+                                <td style="color: #e74c3c;"><strong>30 milyar m³</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Transfer Potansiyeli</strong></td>
+                                <td>5 milyar m³</td>
+                                <td>7 milyar m³</td>
+                                <td style="color: #27ae60;"><strong>12 milyar m³</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <h5 style="color: #f57c00;">⚠️ Stratejik Önem:</h5>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li><strong>Ekonomik Kayıp:</strong> 30 milyar m³ × 4$/m³ = 120 milyar $/yıl</li>
+                            <li><strong>Su Diplomasisi:</strong> Irak ve Suriye ile protokoller</li>
+                            <li><strong>GAP Entegrasyonu:</strong> Mevcut altyapıyı kullanma</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4>🗺️ Önerilen Transfer Güzergahları:</h4>
+                    <div class="technical-specs">
+                        <div class="spec-item">
+                            <strong>1. Güney Koridoru</strong><br>
+                            Ilısu→Mardin→Şanlıurfa→Gaziantep<br>
+                            450 km, 3 milyar m³/yıl
+                        </div>
+                        <div class="spec-item">
+                            <strong>2. Batı Koridoru</strong><br>
+                            Atatürk Barajı→Adıyaman→Malatya→Kayseri<br>
+                            580 km, 4 milyar m³/yıl
+                        </div>
+                        <div class="spec-item">
+                            <strong>3. Kuzey Koridoru</strong><br>
+                            Keban→Elazığ→Erzincan→Sivas<br>
+                            420 km, 3 milyar m³/yıl
+                        </div>
+                        <div class="spec-item">
+                            <strong>4. İç Anadolu Hattı</strong><br>
+                            Birecik→Gaziantep→Kahramanmaraş→Konya<br>
+                            650 km, 2 milyar m³/yıl
+                        </div>
+                    </div>
+                    
+                    <div class="cost-breakdown" style="margin-top: 20px;">
+                        <h4>💰 Yatırım Analizi:</h4>
+                        <ul>
+                            <li><strong>Toplam Hat:</strong> 2.100 km</li>
+                            <li><strong>Tahmini Maliyet:</strong> 65-85 milyar $</li>
+                            <li><strong>Birim Maliyet:</strong> 5.4-7.1 $/m³</li>
+                            <li><strong>Geri Ödeme:</strong> 7-9 yıl</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UYGULAMA TAKVİMİ -->
+        <div class="card">
+            <h3>📅 Proje Uygulama Takvimi</h3>
+            <div class="phase-timeline">
+                <div class="phase-item">
+                    <strong>FAZ 1</strong><br>
+                    2025-2027<br>
+                    Ön Hazırlık
+                </div>
+                <div class="phase-item">
+                    <strong>FAZ 2</strong><br>
+                    2027-2032<br>
+                    Ana İnşaat
+                </div>
+                <div class="phase-item">
+                    <strong>FAZ 3</strong><br>
+                    2032-2035<br>
+                    Test & Devreye Alma
+                </div>
+                <div class="phase-item">
+                    <strong>FAZ 4</strong><br>
+                    2035-2037<br>
+                    Kapasite Artırımı
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h4>💼 Kritik Başarı Faktörleri:</h4>
+                <ul style="columns: 2; padding-left: 20px;">
+                    <li><strong>Jeolojik Etüd Doğruluğu:</strong> Tünel güzergahları</li>
+                    <li><strong>Çevresel İzin Süreci:</strong> 24-36 ay</li>
+                    <li><strong>Kamulaştırma:</strong> 2000 parsel</li>
+                    <li><strong>Finansman Paketi:</strong> Çok aşamalı</li>
+                    <li><strong>Teknoloji Transferi:</strong> TBM ve SCADA</li>
+                    <li><strong>İnsan Kaynağı:</strong> 200.000 kişi</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; border-top: 2px solid #e0e0e0; padding-top: 30px;">
+            <h3 style="color: white; margin-bottom: 20px; font-weight: 500;">Diğer Çözüm Önerilerini ve Analizleri Keşfedin</h3>
+            <a href="deniz_suyu.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #3498db; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🌊 Deniz Suyu Arıtma Planını İncele</a>
+            <a href="su_transfer_detay_hesaplama.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #2980b9; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">📊 Detaylı Mühendislik Hesaplamaları</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Harita başlatma
+        const map = L.map('map').setView([39.0, 35.0], 6);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Transfer hatları
+        const routes = {
+            'kuzey-guney': {
+                coordinates: [
+                    [41.287, 36.33], // Samsun
+                    [40.55, 34.95],  // Çorum
+                    [39.92, 32.85],  // Ankara
+                    [37.87, 32.48],  // Konya
+                    [36.88, 30.70]   // Antalya
+                ],
+                color: '#e74c3c',
+                name: 'Kuzey-Güney Hattı (850 km)',
+                capacity: '4.7 milyar m³/yıl'
+            },
+            'dogu-bati': {
+                coordinates: [
+                    [41.18, 41.82], // Artvin
+                    [39.75, 39.50], // Erzincan
+                    [39.75, 37.02], // Sivas
+                    [39.92, 32.85], // Ankara
+                    [38.42, 27.13]  // İzmir
+                ],
+                color: '#27ae60',
+                name: 'Doğu-Batı Hattı (950 km)',
+                capacity: '3.8 milyar m³/yıl'
+            },
+            'dicle-firat': {
+                coordinates: [[37.5, 38.3], [37.1, 37.2], [37.8, 35.3], [38.2, 32.5]],
+                color: '#f39c12',
+                name: 'Fırat-Dicle → İç Anadolu Hattı',
+                capacity: '5 milyar m³/yıl'
+            },
+            'yesilirmak': {
+                coordinates: [[40.8, 36.6], [40.2, 35.8], [39.9, 32.8]],
+                color: '#3498db',
+                name: 'Yeşilırmak-Kızılırmak → Ankara Hattı',
+                capacity: '2 milyar m³/yıl'
+            }
+        };
+
+        let currentLines = {};
+
+        function showRoute(routeName) {
+            Object.values(currentLines).forEach(line => map.removeLayer(line));
+            currentLines = {};
+
+            if (routeName === 'all') {
+                Object.keys(routes).forEach(key => {
+                    const route = routes[key];
+                    const line = L.polyline(route.coordinates, { color: route.color, weight: 5, opacity: 0.8 }).addTo(map);
+                    line.bindPopup(`<strong>${route.name}</strong><br>Kapasite: ${route.capacity}`);
+                    currentLines[key] = line;
+                });
+            } else if (routes[routeName]) {
+                const route = routes[routeName];
+                const line = L.polyline(route.coordinates, { color: route.color, weight: 6, opacity: 0.9 }).addTo(map);
+                line.bindPopup(`<strong>${route.name}</strong><br>Kapasite: ${route.capacity}`);
+                currentLines[routeName] = line;
+                map.fitBounds(line.getBounds());
+            }
+        }
+
+        // Su kaynakları işaretleri
+        const waterSources = [
+            { pos: [41.287, 36.33], name: "Karadeniz Havzası", capacity: "17.1 milyar m³" },
+            { pos: [41.18, 41.82], name: "Çoruh Havzası", capacity: "4.4 milyar m³" },
+            { pos: [38.5, 40.0], name: "Fırat-Dicle", capacity: "9.4 milyar m³" },
+            { pos: [39.5, 42.0], name: "Doğu Anadolu", capacity: "19.1 milyar m³" }
+        ];
+
+        waterSources.forEach(source => {
+            L.circleMarker(source.pos, {
+                color: '#3498db',
+                fillColor: '#3498db',
+                fillOpacity: 0.7,
+                radius: 10
+            }).addTo(map)
+            .bindPopup(`<strong>${source.name}</strong><br>Transfer Potansiyeli: ${source.capacity}`);
+        });
+
+        // Başlangıçta tüm hatları göster
+        showRoute('all');
+    </script>
+</body>
+</html> 

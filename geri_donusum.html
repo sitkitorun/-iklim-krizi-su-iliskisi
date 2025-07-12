@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geri Dönüşüm & Sıfır Atık - Su ve İklim Krizi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f7f6;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; color: white; margin-bottom: 30px; background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); padding: 40px 20px; border-radius: 15px; }
+        .header h1 { font-size: 3em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header .subtitle { font-size: 1.2em; opacity: 0.9; }
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-left: 5px solid #2ecc71; }
+        .card h3 { color: #27ae60; margin-bottom: 20px; font-size: 1.5em; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+        .card ul { list-style: none; padding-left: 0; }
+        .card li { padding: 8px 0; padding-left: 25px; position: relative; }
+        .card li::before { content: '♻️'; position: absolute; left: 0; }
+        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 25px 0; }
+        .stat-card { background: linear-gradient(135deg, #e8f8f5, #d1f2eb); color: #148f77; padding: 20px; border-radius: 10px; text-align: center; }
+        .stat-number { font-size: 2em; font-weight: bold; display: block; margin-bottom: 5px; }
+        .process-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; }
+        .process-table th, .process-table td { border: 1px solid #e0e0e0; padding: 12px; text-align: left; }
+        .process-table th { background: #e8f8f5; color: #148f77; font-weight: bold; }
+        .process-table tr:nth-child(even) { background: #f8f9fa; }
+        .high-potential { background: #d5f5e3 !important; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 20px 0; border-radius: 10px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .reference { font-size: 0.8em; color: #777; margin-top: 10px; display: block; font-style: italic; }
+        .solution-box { background: #e8f8f5; border-left: 4px solid #1abc9c; padding: 15px; margin-top: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item active">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>♻️ Döngüsel Ekonomi ve Geri Dönüşüm Stratejileri</h1>
+            <p class="subtitle">Su ve Karbon Tasarrufu için Döngüsel Ekonomi Stratejileri</p>
+        </header>
+
+        <div class="grid-container">
+            <div class="card">
+                <h3>🔄 MALZEME BAZLI TASARRUF ORANLARI</h3>
+                <table class="process-table">
+                    <thead>
+                        <tr>
+                            <th>Malzeme</th>
+                            <th>Su Tasarrufu</th>
+                            <th>CO2 Azaltımı</th>
+                            <th>Kaynak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="high-potential">
+                            <td>Alüminyum</td>
+                            <td>~95%</td>
+                            <td>~92%</td>
+                            <td>The Recycling Partnership</td>
+                        </tr>
+                        <tr class="high-potential">
+                            <td>Plastik (PET/HDPE)</td>
+                            <td>~90%</td>
+                            <td>~87%</td>
+                            <td>ALPLA Blog</td>
+                        </tr>
+                        <tr>
+                            <td>Çelik</td>
+                            <td>~40%</td>
+                            <td>~58%</td>
+                            <td>BusinessRecycling.com.au</td>
+                        </tr>
+                        <tr>
+                            <td>Kağıt</td>
+                            <td>~47%</td>
+                            <td>~50%</td>
+                            <td>Recycled-Papers.co.uk</td>
+                        </tr>
+                        <tr>
+                            <td>Cam</td>
+                            <td>~50%</td>
+                            <td>~30%</td>
+                            <td>EPA WARM Model</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Bu oranlar, birincil (virgin) hammadde üretimine kıyasla geri dönüştürülmüş malzeme kullanmanın sağladığı ortalama çevresel faydaları göstermektedir.</p>
+            </div>
+
+            <div class="card">
+                <h3>💧 BETONDA ALTERNATİF SU KAYNAKLARI</h3>
+                <h4>1. Deniz Suyu Kullanımı</h4>
+                <ul>
+                    <li><b>Handikap:</b> İçerdiği yüksek klorür iyonları (%~2), standart çelik donatıyı (inşaat demiri) hızla paslandırarak betonun yapısal bütünlüğünü yok eder. Bu nedenle standartlarda yasaklanmıştır.</li>
+                    <li><b>Çözüm: Cam Elyaf Takviyeli Polimer (CTP / GFRP) Donatı:</b> Korozyona uğramayan CTP donatılar kullanıldığında deniz suyu, beton karma suyu olarak kullanılabilir. Bu, özellikle kıyı bölgelerinde ve su kıtlığı olan yerlerde tatlı su tüketimini tamamen ortadan kaldırabilir.</li>
+                </ul>
+                <div class="solution-box">
+                    <strong>Stratejik Öneri:</strong> Kıyı şeridindeki yapılarda CTP donatı teknolojisinin teşvik edilmesi, deniz suyunu devasa bir tatlı su alternatifi haline getirir.
+                    <span class="reference">Kaynak: Innovations in Corrosion and Materials Science, 2020</span>
+                </div>
+
+                <h4 style="margin-top: 20px;">2. Arıtılmış Atık Su (AAT Çıkış Suyu)</h4>
+                <ul>
+                    <li><b>Handikaplar:</b> Yetersiz arıtılmış suda kalan organik maddeler, sülfatlar ve mikroorganizmalar betonun priz süresini ve nihai dayanımını olumsuz etkileyebilir.</li>
+                    <li><b>Çözüm: İleri Arıtma ve Standartlar:</b> İkincil (biyolojik) arıtmadan geçmiş ve dezenfekte edilmiş sular genellikle kullanılabilir. Gerekirse, beton standartlarının (örn. EN 1008) belirlediği limitlere getirmek için son bir filtrasyon veya membran teknolojisi (ultrafiltrasyon) uygulanabilir.</li>
+                </ul>
+                <div class="solution-box">
+                    <strong>Stratejik Öneri:</strong> AAT'lerin yanına kurulacak "beton suyu hazırlama" modüler üniteleri, arıtılmış suyu güvenli bir inşaat malzemesine dönüştürebilir.
+                    <span class="reference">Kaynak: Water Journal (MDPI), 2016</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🏭 SEKTÖREL GERİ DÖNÜŞÜM POTANSİYELİ</h3>
+                <h4>İnşaat & Yıkıntı Atıkları</h4>
+                <p>Türkiye'de yıllık yaklaşık 100 milyon ton inşaat ve yıkıntı atığı oluşmaktadır. Bunun sadece %10-15'i geri dönüştürülmektedir.</p>
+                <ul>
+                    <li><b>Hedef:</b> Atıkların %85'inin geri dönüştürülerek agrega, dolgu malzemesi ve alt temel olarak kullanılması.</li>
+                    <li><b>Potansiyel:</b> Bu, yılda yaklaşık 150 milyon m³ yeni taş ocağı sahasının açılmasını önler ve önemli ölçüde su ve enerji tasarrufu sağlar.</li>
+                </ul>
+                
+                <h4>Endüstriyel Atıksu Geri Kazanımı</h4>
+                <p>Organize Sanayi Bölgeleri (OSB) atıksu geri kazanımı için en büyük potansiyeli taşır.</p>
+                <ul>
+                    <li><b>Hedef:</b> Gri su ve proses sularının %80 oranında tesis içinde geri çevrimi.</li>
+                    <li><b>Teknoloji:</b> Membran Biyoreaktör (MBR) ve Ters Osmoz (RO) sistemleri ile "Sıfır Sıvı Deşarj" (ZLD) hedeflenebilir.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>♻️ İLERİ GERİ DÖNÜŞÜM ALANLARI</h3>
+                <h4>Mikroplastik Yakalama ve Kazanımı</h4>
+                <p>Özellikle tekstil yıkama ve şehir atık sularından gelen mikroplastiklerin, ileri arıtma tesislerinde membran filtreler ve gelişmiş oksidasyon prosesleri ile yakalanması ve hammaddeye dönüştürülmesi hedeflenir.</p>
+                
+                <h4 style="margin-top: 20px;">Atıktan Türetilmiş Yakıt (ATY/RDF)</h4>
+                <p>Geri dönüştürülemeyen ancak yüksek kalorifik değere sahip atıkların (tekstil, plastik, ambalaj atıkları) çimento fabrikaları gibi enerji yoğun tesislerde kömür yerine alternatif yakıt olarak kullanılmasıdır.</p>
+
+                <h4 style="margin-top: 20px;">Petrokimya Sanayi Atıkları (PTA)</h4>
+                <p>Saflaştırılmış Tereftalik Asit (PTA) gibi üretim fireleri, kimyasal geri dönüşüm yöntemleriyle tekrar monomerlerine ayrıştırılarak PET şişe veya polyester elyaf üretiminde kullanılabilir. Bu, %95'in üzerinde kaynak verimliliği sağlar.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

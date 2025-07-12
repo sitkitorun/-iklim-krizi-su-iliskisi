@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deniz Suyu Arıtma - Türkiye Su Sorunu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(52, 73, 94, 0.95);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-item {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-title h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .tech-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em; /* Yazı tipi boyutunu küçülttüm */
+        }
+        
+        .tech-comparison th,
+        .tech-comparison td {
+            border: 1px solid #ddd;
+            padding: 8px 5px; /* İç boşlukları azalttım */
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .tech-comparison th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .tech-comparison tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .best-tech { background: #d5f4e6 !important; }
+        .good-tech { background: #fef9e7 !important; }
+        .average-tech { background: #fadbd8 !important; }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .cost-breakdown {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">🏠 Ana Sayfa</a>
+                <a href="kaynak_analizi.html" class="nav-item">🔍 Kaynak Analizi</a>
+                <a href="endustri_etkisi.html" class="nav-item">🏭 Endüstri Etkisi</a>
+                <a href="alternatifler.html" class="nav-item">🌱 Alternatifler</a>
+                <a href="su_stresi_cozumleri.html" class="nav-item">💧 Su Stresi Çözümleri</a>
+                <a href="uygulama.html" class="nav-item">⚡ Uygulama</a>
+                <a href="hesaplama.html" class="nav-item">📊 Hesaplama</a>
+                <a href="tum_sektorler.html" class="nav-item">🏢 Tüm Sektörler</a>
+                <a href="ets_vergi.html" class="nav-item">💰 ETS & Vergi</a>
+                <a href="geri_donusum.html" class="nav-item">♻️ Geri Dönüşüm</a>
+                <a href="forum.html" class="nav-item">💬 Forum</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>🌊 DENİZ SUYU ARITMA</h1>
+            <p>Türkiye Deniz Suyu Arıtma Master Planı</p>
+        </div>
+
+        <div style="background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">🎯 NEDEN DENİZ SUYU ARITMA?</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
+                <div style="flex: 3; min-width: 300px;">
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <h3 style="color: #1976d2; margin-bottom: 15px;">📍 Kritik Gereklilikler</h3>
+                        <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+                            <li><strong>Su Stresi:</strong> Türkiye'nin %60'ı su stresi altında, 2050'de %80'e çıkacak</li>
+                            <li><strong>İklim Değişikliği:</strong> Yağışlarda %20-25 azalma, buharlaşmada %15 artış</li>
+                            <li><strong>Nüfus Artışı:</strong> 2050'de 100 milyon nüfus = +%25 su talebi</li>
+                            <li><strong>Kıyı Kentleri:</strong> Nüfusun %65'i kıyı şeridinde, denize erişim kolay</li>
+                            <li><strong>Teknoloji Olgunluğu:</strong> RO maliyetleri son 10 yılda %70 düştü</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px;">
+                        <h3 style="color: #f57c00; margin-bottom: 15px;">⚡ Stratejik Hedefler</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                            <div>
+                                <h4 style="color: #e65100;">2027 - Acil İhtiyaç</h4>
+                                <p>300 bin m³/gün kapasite ile İstanbul, Antalya ve İzmir'in yaz dönemindeki su açığını karşılama</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #e65100;">2035 - Güvenlik Tamponu</h4>
+                                <p>2.5 milyon m³/gün ile tüm kıyı kentlerinde %25 su güvenliği tamponu oluşturma</p>
+                            </div>
+                            <div>
+                                <h4 style="color: #e65100;">2050 - Tam Bağımsızlık</h4>
+                                <p>5.5 milyon m³/gün (2 milyar m³/yıl) ile iklim değişikliğine karşı tam dirençlilik</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="flex: 2; min-width: 300px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/bfr82RB72U8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/lNsI5f7YjrA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/ogaqWLeAU6I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe style="width: 100%; aspect-ratio: 16 / 9; border-radius: 10px;" src="https://www.youtube.com/embed/P6UZBZoQwHQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-grid">
+            <div class="card">
+                <h3>⚙️ TEKNOLOJİ KARŞILAŞTIRMASI VE UYGULAMA ALANLARI</h3>
+                
+                <table class="tech-comparison">
+                    <thead>
+                        <tr>
+                            <th>Teknoloji</th>
+                            <th>Su Tipi</th>
+                            <th>Maliyet ($/m³)</th>
+                            <th>Enerji (kWh/m³)</th>
+                            <th>Temel Kullanım Alanı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>UF/NF Ön Arıtma + RO</strong></td>
+                            <td>Standart Deniz Suyu (&lt;55,000 µS/cm)</td>
+                            <td>0.60 - 1.10</td>
+                            <td>3.0 - 4.5</td>
+                            <td class="best-tech">En Verimli ve Yaygın Çözüm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Termal Buharlaştırma (MED/MSF)</strong></td>
+                            <td>Yüksek Tuzluluk / Atık Isı Olan Yerler</td>
+                            <td>0.95 - 1.80</td>
+                            <td>8 - 18 (Termal eşdeğeri)</td>
+                            <td class="average-tech">Zorlu Sular ve Endüstriyel Entegrasyon</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hibrit Sistem (RO + Termal)</strong></td>
+                            <td>Tüm Su Tipleri (ZLD Hedefi)</td>
+                            <td>1.10 - 2.00</td>
+                            <td>Değişken</td>
+                            <td class="good-tech">Maksimum Geri Kazanım</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>🏆 Önerilen Teknoloji Stratejisi</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Ana Strateji:</strong> Deniz suyu arıtımında, RO membranlarının ömrünü uzatmak ve işletme maliyetlerini düşürmek için <strong>Ultrafiltrasyon (UF) ön arıtması</strong> kritik öneme sahiptir. Bu nedenle, ana çözüm yolu <strong>UF+RO</strong> kombinasyonudur.</li>
+                    <li><strong>Yüksek Tuzluluk Çözümü:</strong> İletkenliğin 55,000 µS/cm'yi aştığı veya endüstriyel atık ısı kaynağının bulunduğu lokasyonlarda, <strong>Termal Buharlaştırma (MED/MSF)</strong> teknolojileri, RO'ya göre daha güvenilir ve sürdürülebilir bir alternatif haline gelir.</li>
+                     <li><strong>Nihai Hedef (Sıfır Atık):</strong> "Sıfır Sıvı Deşarj" hedeflenen entegre tesislerde, RO'dan çıkan konsantre atık suyun (brine) <strong>Termal Buharlaştırma</strong> ile işlenerek tuz ve değerli minerallerin geri kazanıldığı hibrit sistemler en ideal çözümdür.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🗺️ TÜRKİYE MASTER PLANI</h3>
+                
+                <h4>🚀 FAZ 1 (2024-2027): Pilot Projeler</h4>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">300</span>
+                        <span>bin m³/gün<br>Kapasite</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">5</span>
+                        <span>Tesis<br>Antalya, İzmir, İstanbul</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2.8</span>
+                        <span>milyar $<br>Yatırım</span>
+                    </div>
+                </div>
+
+                <h4>⚡ FAZ 2 (2027-2035): Yaygınlaştırma</h4>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">2.5</span>
+                        <span>milyon m³/gün<br>Kapasite</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">25</span>
+                        <span>Tesis<br>Tüm Kıyı Şehirleri</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">18</span>
+                        <span>milyar $<br>Yatırım</span>
+                    </div>
+                </div>
+
+                <h4>🎯 FAZ 3 (2035-2050): Tam Kapasite</h4>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">5.5</span>
+                        <span>milyon m³/gün<br>Kapasite</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">60</span>
+                        <span>Tesis<br>Ulusal Şebeke</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">35</span>
+                        <span>milyar $<br>Toplam Yatırım</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💰 MALİYET ANALİZİ</h3>
+                
+                <div class="cost-breakdown">
+                    <h4>📊 Maliyet Bileşenleri (RO Sistemi):</h4>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>CAPEX (Yatırım):</strong> 1.200-1.800 $/m³/gün</li>
+                        <li><strong>OPEX (İşletme):</strong> 0.35-0.50 $/m³</li>
+                        <li><strong>Enerji maliyeti:</strong> %45-55 toplam maliyet</li>
+                        <li><strong>Membran değişimi:</strong> %15-20 toplam maliyet</li>
+                        <li><strong>Kimyasal giderler:</strong> %8-12 toplam maliyet</li>
+                    </ul>
+                </div>
+
+                <h4>🌞 Yenilenebilir Enerji Etkisi:</h4>
+                <table class="tech-comparison">
+                    <thead>
+                        <tr>
+                            <th>Enerji Kaynağı</th>
+                            <th>Maliyet ($/m³)</th>
+                            <th>CO2 (kg/m³)</th>
+                            <th>Güvenilirlik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Şebeke (Kömür)</td>
+                            <td>1.15</td>
+                            <td>4.8</td>
+                            <td class="best-tech">%98</td>
+                        </tr>
+                        <tr>
+                            <td>Güneş + Batarya</td>
+                            <td>0.85</td>
+                            <td>0.3</td>
+                            <td class="good-tech">%92</td>
+                        </tr>
+                        <tr>
+                            <td>Hibrit (G+R+B)</td>
+                            <td>0.75</td>
+                            <td>0.2</td>
+                            <td class="best-tech">%96</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>🌍 ÇEVRESEL ETKİ</h3>
+                
+                <h4>⚠️ Brine (Tuzlu Atık Su) Yönetimi:</h4>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Atık oranı:</strong> %45-55 (100m³ deniz suyu → 45-50m³ brine)</li>
+                    <li><strong>Tuz konsantrasyonu:</strong> 65.000-70.000 ppm (2x deniz suyu)</li>
+                    <li><strong>Sıcaklık artışı:</strong> +3-5°C çıkış sıcaklığı</li>
+                    <li><strong>Kimyasal kalıntılar:</strong> Anti-scaling, korozyon inhibitörleri</li>
+                </ul>
+
+                <h4>♻️ Brine Geri Kazanım Çözümleri:</h4>
+                <div class="cost-breakdown">
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Tuz kristalizasyonu:</strong> Endüstriyel tuz üretimi</li>
+                        <li><strong>Lityum ekstraktiyonu:</strong> Batarya sanayii hammaddesi</li>
+                        <li><strong>Jeotermal entegrasyon:</strong> Sıcaklık geri kazanımı</li>
+                        <li><strong>Akuakültür:</strong> Kontrollü tuzlu su havuzları</li>
+                    </ul>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">-60%</span>
+                        <span>CO2 Azaltımı<br>vs Geleneksel</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">+25%</span>
+                        <span>Ek Gelir<br>Brine Değerlendirme</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📍 STRATEJİK KONUMLAR</h3>
+                
+                <h4>🏆 Öncelikli Lokasyonlar:</h4>
+                
+                <div style="margin: 20px 0;">
+                    <h5>1. İSTANBUL - Tuzla Kompleksi</h5>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Kapasite:</strong> 1 milyon m³/gün</li>
+                        <li><strong>Teknoloji:</strong> RO + Güneş + Batarya</li>
+                        <li><strong>Maliyet:</strong> 8.5 milyar $ (2030)</li>
+                        <li><strong>Hedef nüfus:</strong> 5 milyon kişi</li>
+                    </ul>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <h5>2. ANTALYA - Akdeniz Merkezi</h5>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Kapasite:</strong> 500.000 m³/gün</li>
+                        <li><strong>Teknoloji:</strong> RO + Güneş</li>
+                        <li><strong>Maliyet:</strong> 3.2 milyar $ (2027)</li>
+                        <li><strong>Turizm entegrasyonu:</strong> Yaz yoğunluğu</li>
+                    </ul>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <h5>3. İZMİR - Ege Havzası</h5>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Kapasite:</strong> 800.000 m³/gün</li>
+                        <li><strong>Teknoloji:</strong> Hibrit (RO + MED)</li>
+                        <li><strong>Maliyet:</strong> 5.8 milyar $ (2029)</li>
+                        <li><strong>Endüstri entegrasyonu:</strong> Petkim, TÜPRAŞ</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📈 EKONOMİK FAYDA ANALİZİ</h3>
+                
+                <h4>💸 Maliyet-Fayda Karşılaştırması:</h4>
+                <table class="tech-comparison">
+                    <thead>
+                        <tr>
+                            <th>Senaryo</th>
+                            <th>Yatırım ($)</th>
+                            <th>Su Üretimi (m³/yıl)</th>
+                            <th>Geri Ödeme (yıl)</th>
+                            <th>NPV</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2027 Hedefi</td>
+                            <td>2.8 milyar</td>
+                            <td>109 milyon</td>
+                            <td>12.5</td>
+                            <td class="good-tech">Pozitif</td>
+                        </tr>
+                        <tr>
+                            <td>2035 Hedefi</td>
+                            <td>21 milyar</td>
+                            <td>913 milyon</td>
+                            <td>8.5</td>
+                            <td class="best-tech">Yüksek</td>
+                        </tr>
+                        <tr>
+                            <td>2050 Hedefi</td>
+                            <td>56 milyar</td>
+                            <td>2 milyar</td>
+                            <td>6.2</td>
+                            <td class="best-tech">Çok Yüksek</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>🌟 Sosyoekonomik Faydalar:</h4>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">450k</span>
+                        <span>İstihdam<br>Direkt+Dolaylı</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">%25</span>
+                        <span>Su Güvenliği<br>Artışı</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">85</span>
+                        <span>milyar $<br>Ekonomik Katma Değer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; border-top: 2px solid #e0e0e0; padding-top: 30px;">
+            <h3 style="color: white; margin-bottom: 20px; font-weight: 500;">Diğer Çözüm Önerilerini ve Analizleri Keşfedin</h3>
+            <a href="su_transfer.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #27ae60; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">🚰 Ulusal Su Transfer Projesini İncele</a>
+            <a href="deniz_suyu_teknolojileri.html" style="display: inline-block; margin: 10px; padding: 15px 30px; background: #3498db; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">⚙️ Teknoloji Detaylarını İncele</a>
+        </div>
+    </div>
+</body>
+</html> 
